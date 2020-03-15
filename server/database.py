@@ -39,19 +39,16 @@ CREATE TABLE IF NOT EXISTS recepies
         product8_id INTEGER UNIQUE,
         product9_id INTEGER UNIQUE,
         product10_id INTEGER UNIQUE,
-        FOREIGN KEY (product1) REFERENCES products(id),
-        FOREIGN KEY (product1) REFERENCES products(id),
-        FOREIGN KEY (product1) REFERENCES products(id),
-        FOREIGN KEY (product1) REFERENCES products(id),
-        FOREIGN KEY (product1) REFERENCES products(id),
-        FOREIGN KEY (product1) REFERENCES products(id),
-        FOREIGN KEY (product1) REFERENCES products(id),
-        FOREIGN KEY (product1) REFERENCES products(id),
-        FOREIGN KEY (product1) REFERENCES products(id),
-        FOREIGN KEY (product1) REFERENCES products(id),
-        FOREIGN KEY (product1) REFERENCES products(id)
-
-        
+        FOREIGN KEY (product1_id) REFERENCES products(id),
+        FOREIGN KEY (product2_id) REFERENCES products(id),
+        FOREIGN KEY (product3_id) REFERENCES products(id),
+        FOREIGN KEY (product4_id) REFERENCES products(id),
+        FOREIGN KEY (product5_id) REFERENCES products(id),
+        FOREIGN KEY (product6_id) REFERENCES products(id),
+        FOREIGN KEY (product7_id) REFERENCES products(id),
+        FOREIGN KEY (product8_id) REFERENCES products(id),
+        FOREIGN KEY (product9_id) REFERENCES products(id),
+        FOREIGN KEY (product10_id) REFERENCES products(id)     
     )
 ''')
 
