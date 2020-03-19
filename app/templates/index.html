@@ -3,12 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
     <title>Index</title>
 </head>
 <body>
-    
-    <div>
-        <h1>Hello from index html</h1>
+    <div class="navbar">
+        <ul class="navbar_ul">
+            <li class="navbar_li"><a class="active" href="/">Home</a></liclass="navbar_li">
+            <li class="navbar_li"><a href="/login">Login</a></li>
+            <li class="navbar_li"><a href="/register">Register</a></li>
+            <li class="navbar_li"><a href="#about">About</a></li>
+        </ul>
     </div>
 </body>
 </html>
