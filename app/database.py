@@ -29,6 +29,10 @@ conn.cursor().execute('''
 CREATE TABLE IF NOT EXISTS recepies
     (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT NOT NULL,
+        user TEXT NOT NULL,
+        description TEXT NOT NULL,
+        rating INTEGER,
         product1_id INTEGER UNIQUE,
         product2_id INTEGER UNIQUE,
         product3_id INTEGER UNIQUE,
