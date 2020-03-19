@@ -1,8 +1,8 @@
 from flask import Flask, redirect, render_template, request, url_for
 import sqlite3
  
- from product import Product
- from recepies import Recepie
+from product import Product
+from recepies import Recepie
 
 app = Flask(__name__)
 
@@ -30,16 +30,16 @@ def my_recepies():
         return render_template('create_recepie.html')
     elif request.method == 'POST':
     #current user again
-    values = (
-        None,
-        name,
-        user,
-        description,
-        rating,
-        #help
-    )
-    Recepie(*values).create()
-    return redirect(url_for('my_recepies'))
+        values = (
+            None,
+            name,
+            user,
+            description,
+            rating,
+            #help
+        )
+        Recepie(*values).create()
+        return redirect(url_for('my_recepies'))
 
 @app.route('/my_recepies/<int:id>/edit', methods=['GET', 'POST'])
 #need to be log in
@@ -59,7 +59,7 @@ def edit_recepie(id):
 def delete_recepie(id):
     recepie = Recepie.find(id)
     #checker if the user thats is logg ined is the current user
-        recepie.delete()
+    recepie.delete()
     return redirect(url_for('my_recepies'))
 
 if __name__ == '__main__':
