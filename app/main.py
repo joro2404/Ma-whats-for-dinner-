@@ -45,6 +45,10 @@ def create_recipe():
             produc_id = '' + (i+1)
             products[i] = request.form[product_id]
         values[5] = products
+        if number_of_products < 10:
+            while(number_of_products<10):
+                products[number_of_products] = None
+                number_of_products += 1
         Recepe(*values).create()
         return redirect(url_for('my_recepies'))
 
@@ -52,13 +56,21 @@ def create_recipe():
 @login_required
 def edit_recipe(id):
     recipe = Recipe.find(id)
+    number_of_products = len(recipe.products)
     if request.method == 'GET':
-        return render_template('edit_recipe.html', recipe=recipe)
+        return render_template('edit_recipe.html', recipe=recipe, number_of_products=number_of_products)
     elif request.method == 'POST':
         recipe.name = request.form['name']
         recipe.description = request.form['description']
-        #products to be added/deleted
-        recipe.save()
+        products = []
+        for i in range(number_of_products):
+            produc_id = '' + (i+1)
+            products[i] = request.form[product_id]
+        if number_of_products < 10:
+            while(number_of_products<10):
+                products[number_of_products] = None
+                number_of_products += 1
+        recipe.save(products)
         return redirect(url_for('my_recipes'))
 
 @main.route('/my_recipes/<int:id>/delete', methods=['GET', 'POST'])
