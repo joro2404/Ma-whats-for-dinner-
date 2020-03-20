@@ -23,7 +23,7 @@ def profile():
 @login_required
 def my_recipes():
     #current user again
-    return render_template('my_recipes.html')
+    return render_template('my_recipes.html', recipes=Recipe.get_by_user_id(current_user.id))
 
 
 @main.route('/create_recipe', methods=['GET', 'POST'])
@@ -32,16 +32,20 @@ def create_recipe():
     if request.method == 'GET':
         return render_template('create_recipe.html')
     elif request.method == 'POST':
-    #current user again
-        values = (
+    number_of_products = request.form['number_of_products']
+        values = []
             None,
             name,
             current_user.id,
             description,
-            rating,
-            #help
-        )
-        Recepie(*values).create()
+            rating
+        ]
+        products = []
+        for i in range(number_of_products):
+            produc_id = '' + (i+1)
+            products[i] = request.form[product_id]
+        values[5] = products
+        Recepe(*values).create()
         return redirect(url_for('my_recepies'))
 
 @main.route('/my_recipes/<int:id>/edit', methods=['GET', 'POST'])

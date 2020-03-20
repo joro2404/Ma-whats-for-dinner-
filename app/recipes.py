@@ -19,7 +19,7 @@ class Recipe:
 
     def create(self):
         with DB() as db:
-            values = (self.name, self.user, self.description)
+            values = [self.name, self.user_id, self.description]
             for i in range(10):
                 values[i+3] = products[i]
             db.execute('''
@@ -45,9 +45,15 @@ class Recipe:
             if row:
                 return Recipe(*row)
 
+    @staticmethod
+    def get_by_user_id(user_id):
+        with DB() as db:
+            rows = db.execute('SELECT * FROM recipes WHERE user_id = ?', (user_id,)).fetchall()
+            return [Recipe(*row) for row in rows]
+
     def save(self):
         with DB() as db:
-            values = (self.name, self.description)
+            values = [self.name, self.description]
             for i in range(10):
                 values[i+2] = products[i]
             values[12] = self.id
