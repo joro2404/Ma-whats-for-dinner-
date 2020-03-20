@@ -1,11 +1,11 @@
-from database import DB
-from user import User
+from .database import DB
+# from .user import User
 
 class Recepie:
-    def __init__(self, id, name, user, description, rating, products):
+    def __init__(self, id, name, user_id, description, rating, products):
         self.id = id
         self.name = name
-        self.user = user
+        self.user_id = user_id
         self.description = description
         self.rating = rating
         self.products = products
@@ -23,7 +23,7 @@ class Recepie:
             for i in range(10):
                 values[i+3] = products[i]
             db.execute('''
-                INSERT INTO recepies(name, user, description, product1_id, product2_id, product3_id, product4_id, product5_id, product6_id, product7_id, product8_id, product9_id, product10_id)
+                INSERT INTO recepies(name, user_id, description, product1_id, product2_id, product3_id, product4_id, product5_id, product6_id, product7_id, product8_id, product9_id, product10_id)
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)''', values)
             return self
 

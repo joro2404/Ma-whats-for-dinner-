@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS recepies
     (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         name TEXT NOT NULL,
-        user TEXT NOT NULL,
+        user_id TEXT NOT NULL,
         description TEXT NOT NULL,
         rating INTEGER,
         product1_id INTEGER UNIQUE,

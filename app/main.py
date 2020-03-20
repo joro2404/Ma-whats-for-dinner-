@@ -1,31 +1,34 @@
-from flask import Flask, redirect, render_template, request, url_for
+from flask import Flask, redirect, render_template, request, url_for, Blueprint
+from flask_login import login_required, current_user
 import sqlite3
- 
-from product import Product
-from recepies import Recepie
+from .product import Product
+from .recepies import Recepie
 
-app = Flask(__name__)
 
-@app.route('/')
+main = Blueprint('main', __name__)
+
+
+@main.route('/')
 def index():
     return render_template('index.html')
 
 
-@app.route('/profile')
+@main.route('/profile')
+@login_required
 def profile():
-    #to be done by vesko
-    #need to get current user
-    return render_template('profile.html')
+    return render_template('profile.html', current_user=current_user)
 
-@app.route('/my_recepies')
-#need to be log in
+
+@main.route('/my_recepies')
+@login_required
 def my_recepies():
     #current user again
     return render_template('my_recepies.html')
 
-@app.route('/create_recepie', methods=['GET', 'POST'])
-#need to be log in
-def my_recepies():
+
+@main.route('/create_recepie', methods=['GET', 'POST'])
+@login_required
+def create_recepie():
     if request.method == 'GET':
         return render_template('create_recepie.html')
     elif request.method == 'POST':
@@ -33,7 +36,7 @@ def my_recepies():
         values = (
             None,
             name,
-            user,
+            current_user.id,
             description,
             rating,
             #help
@@ -41,8 +44,8 @@ def my_recepies():
         Recepie(*values).create()
         return redirect(url_for('my_recepies'))
 
-@app.route('/my_recepies/<int:id>/edit', methods=['GET', 'POST'])
-#need to be log in
+@main.route('/my_recepies/<int:id>/edit', methods=['GET', 'POST'])
+@login_required
 def edit_recepie(id):
     recepie = Recepie.find(id)
     if request.method == 'GET':
@@ -54,12 +57,13 @@ def edit_recepie(id):
         recepie.save()
         return redirect(url_for('my_recepies'))
 
-@app.route('/my_recepies/<int:id>/delete', methods=['GET', 'POST'])
-#need to be log in
+@main.route('/my_recepies/<int:id>/delete', methods=['GET', 'POST'])
+@login_required
 def delete_recepie(id):
     recepie = Recepie.find(id)
-    #checker if the user thats is logg ined is the current user
-    recepie.delete()
+    if recepie.user_id == current_user.id:
+        recepie.delete()
+
     return redirect(url_for('my_recepies'))
 
 if __name__ == '__main__':

@@ -1,4 +1,4 @@
-from database import DB
+from .database import DB
 
 class Product:
     def __init__(self, id, name, quantity, unit):
