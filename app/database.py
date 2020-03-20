@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS products
 ''')
 
 conn.cursor().execute('''
-CREATE TABLE IF NOT EXISTS recepies
+CREATE TABLE IF NOT EXISTS recipes
     (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         name TEXT NOT NULL,

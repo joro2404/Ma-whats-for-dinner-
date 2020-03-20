@@ -23,7 +23,7 @@ def login():
             flash('Please check your login credentials!')
             return redirect(url_for('auth.login'))
 
-        login_user(user)
+        login_user(user, remember=remember)
 
         return redirect(url_for('main.profile'))
 
