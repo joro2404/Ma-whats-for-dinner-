@@ -10,10 +10,22 @@
     <div class="navbar">
         <ul class="navbar_ul">
             <li class="navbar_li"><a class="active" href="/">Home</a></liclass="navbar_li">
-            <li class="navbar_li"><a href="/login">Login</a></li>
-            <li class="navbar_li"><a href="/register">Register</a></li>
-            <li class="navbar_li"><a href="#about">About</a></li>
+            {% if not current_user.is_authenticated %}
+                <li class="navbar_li"><a href="/login">Login</a></li>
+                <li class="navbar_li"><a href="/register">Register</a></li>
+            {% endif %}
+            {% if current_user.is_authenticated %}
+                <li class="navbar_li"><a href="/profile">Profile</a></li>
+                <li class="navbar_li logout"><a href="/logout">Logout</a></li>
+            {% endif %}
+            <!-- <li class="navbar_li"><a href="#about">About</a></li> -->
         </ul>
     </div>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {{ messages[0] }}
+        {% endif %}
+    {% endwith %}
 </body>
 </html>

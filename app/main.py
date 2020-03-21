@@ -16,7 +16,7 @@ def index():
 @main.route('/profile')
 @login_required
 def profile():
-    return render_template('profile.html', current_user=current_user)
+    return render_template('profile.html')
 
 
 @main.route('/my_recipes')
@@ -32,8 +32,8 @@ def create_recipe():
     if request.method == 'GET':
         return render_template('create_recipe.html')
     elif request.method == 'POST':
-    number_of_products = request.form['number_of_products']
-        values = []
+        number_of_products = request.form['number_of_products']
+        values = [
             None,
             name,
             current_user.id,
@@ -43,14 +43,15 @@ def create_recipe():
         products = []
         for i in range(number_of_products):
             produc_id = '' + (i+1)
-            products[i] = request.form[product_id]
+            products[i] = request.form['product_id']
         values[5] = products
         if number_of_products < 10:
             while(number_of_products<10):
                 products[number_of_products] = None
                 number_of_products += 1
-        Recepe(*values).create()
+        Recipe(*values).create()
         return redirect(url_for('my_recepies'))
+
 
 @main.route('/my_recipes/<int:id>/edit', methods=['GET', 'POST'])
 @login_required
@@ -65,13 +66,14 @@ def edit_recipe(id):
         products = []
         for i in range(number_of_products):
             produc_id = '' + (i+1)
-            products[i] = request.form[product_id]
+            products[i] = request.form['product_id']
         if number_of_products < 10:
             while(number_of_products<10):
                 products[number_of_products] = None
                 number_of_products += 1
         recipe.save(products)
         return redirect(url_for('my_recipes'))
+
 
 @main.route('/my_recipes/<int:id>/delete', methods=['GET', 'POST'])
 @login_required
@@ -81,6 +83,7 @@ def delete_recipe(id):
         recipe.delete()
 
     return redirect(url_for('my_recipes'))
+
 
 if __name__ == '__main__':
     app.run()

@@ -1,5 +1,5 @@
 from .database import DB
-# from .user import User
+
 
 class Recipe:
     def __init__(self, id, name, user_id, description, rating, products):
@@ -51,7 +51,7 @@ class Recipe:
             rows = db.execute('SELECT * FROM recipes WHERE user_id = ?', (user_id,)).fetchall()
             return [Recipe(*row) for row in rows]
 
-    def save(products):
+    def save(self, products):
         with DB() as db:
             values = [self.name, self.description]
             for i in range(10):
