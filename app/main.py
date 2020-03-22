@@ -64,7 +64,7 @@ def create_recipe():
             None,
         )
         Recipe(*values).create()
-        return redirect(url_for('main.my_recepies'))
+        return redirect(url_for('main.my_recipes'))
 
 
 @main.route('/my_recipes/<int:id>/edit', methods=['GET', 'POST'])
