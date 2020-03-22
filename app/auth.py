@@ -55,6 +55,12 @@ def register():
                 flash('Email address already registered!')
                 return redirect(url_for('auth.register'))
 
+            user = User.find_by_sensor(sensor_id)
+
+            if user:
+                flash('Sensor already registered!')
+                return redirect(url_for('auth.register'))
+
             data = (
                 None, 
                 name,

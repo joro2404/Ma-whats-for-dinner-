@@ -43,3 +43,15 @@ class User(UserMixin):
             if row:
                 return User(*row)
 
+
+    @staticmethod
+    def find_by_sensor(sensor_id):
+        if not sensor_id:
+            return None
+        with DB() as db:
+            row = db.execute(
+                'SELECT * FROM users WHERE sensor_id = ?',(sensor_id,)
+            ).fetchone()
+            if row:
+                return User(*row)
+
