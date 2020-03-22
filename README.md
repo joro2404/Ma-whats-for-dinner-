@@ -8,4 +8,6 @@ You can add your own recipes and see other users' as well.
 Written in flask  
 
 
-[![Coverage Status](https://coveralls.io/repos/github/joro2404/Ma-whats-for-dinner-/badge.svg?branch=master)](https://coveralls.io/github/joro2404/Ma-whats-for-dinner-?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/joro2404/Ma-whats-for-dinner-/badge.svg?branch=master)](https://coveralls.io/github/joro2404/Ma-whats-for-dinner-?branch=master)  
+
+[![Build Status](https://travis-ci.org/joro2404/Ma-whats-for-dinner-.svg?branch=master)](https://travis-ci.org/joro2404/Ma-whats-for-dinner-)
