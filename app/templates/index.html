@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='menu.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='welcome.css') }}">
     <title>Ma, whats for dinner?</title>
 </head>
 <body>
@@ -14,7 +15,7 @@
             <nav class="menu">
               <ul class="menu__list">
                 <li class="menu__group"><a href="/" class="menu__link">Home</a></li>
-                <li class="menu__group"><a href="/recipes" class="menu__link">Recepies</a></li>
+                <li class="menu__group"><a href="/recipes" class="menu__link">Recipes</a></li>
                 {% if not current_user.is_authenticated %}
                     <li class="menu__group"><a href="/login" class="menu__link">Log In</a></li>
                     <li class="menu__group"><a href="/register" class="menu__link">Register</a></li>
@@ -30,6 +31,13 @@
         </div>
     </div>
     
+    <div class="plate">
+        <p class="script"><span>MA</span></p>
+        <p class="shadow text1">WHAT</p>
+        <p class="shadow text2">IS FOR</p>
+        <p class="shadow text3">DINNER</p>
+        <p class="script"><span>BY TEAM GESKO</span></p>
+      </div>
 
     {% with messages = get_flashed_messages() %}
         {% if messages %}
