@@ -6,49 +6,93 @@
 
 body {
     background-image: url('backgrounds.png');
-  }
-  
-.navbar_ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: #333;
 }
 
-.navbar_li {
-    float: left;
-}
-
-.navbar_li a {
-    display: block;
-    color: white;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-}
-
-.navbar_li a:hover:not(.active) {
-    background-color: #111;
-}
-
-.active {
-    background-color: #4CAF50;
-}
-
-.navbar {
-    max-width: 1300px;
+.card {
     width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 50px;
+    max-width: 400px;
+    margin: 50px auto 0;
+    background: white;
+    border: 1px solid #888;
+    padding: 50px;
+    box-shadow: 0 30px 60px -20px rgba(0, 0, 0, .6);
 }
-
-.user {
+  
+.card p{
+    margin-bottom: 0;
+}
+  
+.card-title{
+    margin: 0;
+}
+  
+.card-subtitle{
+    margin: 0;
+}
+  
+.card-content {
+    margin-top: 20px;
+}
+  
+.form-line {
     text-align: center;
-    padding-top: 200px;
+    margin: 10px 0;
+}
+  
+.form-input {
+    height: 30px;
+    width: 100%;
+    max-width: 350px;
+    border-radius: 2rem;
+    outline: none;
+    font-size: 16px;
+    padding-left: 15px;
+    border-color: #6c5ce7;
+    border-style: solid;
+}
+  
+.form-input:hover {
+    box-shadow: 0 0 4px rgba(0, 0, 0, .6);
+}
+  
+.form-input:focus {
+    box-shadow: 0 0 4px rgba(75, 9, 130, 1);
+}
+  
+.button {
+    text-align: center;
+    margin-top: 20px;
+}
+  
+.signup {
+    height: 50px;
+    width: 100%;
+    max-width: 180px;
+    background-color: #6c5ce7;
+    border: none;
+    font-size: 20px;
+    border-radius: 2rem;
+    outline-style: none;
+    color: #fff;
+}
+  
+.signup:hover {
+    box-shadow: 0 0 4px rgba(0, 0, 0, .6);
+}
+  
+.reg {
+    margin: 0 auto 20px;
+    text-align: center;
 }
 
-.logout {
-    float: right
+
+.notification-box {
+    width: 100%;
+    max-width: 350px;
+    text-align: center;
+    background: red;
+    border-radius: 2rem;
+    margin: auto;
+    margin-bottom: 20px;
+    font-size: 20px;
 }

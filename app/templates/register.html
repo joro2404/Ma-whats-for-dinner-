@@ -31,30 +31,38 @@
         </div>
     </div>
     <!-- end -->
-    <div class="user">
-        {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            {{ messages[0] }} Go to <a href="{{ url_for('auth.login') }}">login page</a>.
-        {% endif %}
-        {% endwith %}
-        <form class="form" action="/register" method="POST">
-            <div class="form__group">
-                <input name="name" type="text" placeholder="Username" class="form__input" />
-            </div>
-            
-            <div class="form__group">
-                <input name="email" type="email" placeholder="Email" class="form__input" />
-            </div>
-            
-            <div class="form__group">
-                <input name="password" type="password" placeholder="Password" class="form__input" />
+    <div class="card">
+        <div class="notification-danger notification-box">
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {{ messages[0] }}
+            {% endif %}
+            {% endwith %}
+        </div>
+        
+        <header class="card-header">
+            <h1 class="card-title reg">Register</h1>
+        </header>
+        <form action = "/register" method ="post">
+            <div class="form-line">
+                <input type="email" name="email" class="form-input" placeholder="Email address" required>
             </div>
 
-            <div class="form__group">
-                <input name="sensor_id" type="text" placeholder="Sensor ID" class="form__input" />
+            <div class="form-line">
+                <input type="text" name="name" class="form-input" placeholder="Username" required>
             </div>
-            
-            <button class="btn" type="submit">Register</button>
+
+            <div class="form-line">
+                <input type="text" name="sensor_id" class="form-input" placeholder="Sensor ID" required>
+            </div>
+
+            <div class="form-line">
+                <input type="password" name="password" class="form-input" placeholder="Password " required>
+            </div>
+
+            <div class="button">
+                <button class="signup" type="submit">Register</button>
+            </div>
         </form>
     </div>
 </body>

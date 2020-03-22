@@ -77,5 +77,15 @@ class FlaskTestCase(BaseTestCase):
         self.assertIn(b'Sensor already registered!', response.data)
 
 
+    def test_register_if_logged_in(self):
+        self.client.post(
+            '/login',
+            data=dict(email="admin@admin.com", password="admin"),
+            follow_redirects=True
+        )
+        response = self.client.post('/register', follow_redirects=True)
+        self.assertIn(b'You are logged in!', response.data)
+
+
 if __name__ == '__main__':
     unittest.main()
