@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS products
     (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         name TEXT UNIQUE NOT NULL,
-        unit TEXT UNIQUE NOT NULL
+        unit TEXT NOT NULL
     )
 ''')
 
