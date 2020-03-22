@@ -2,7 +2,7 @@ from .database import DB
 
 
 class Product:
-    def __init__(self, id, name, quantity, unit):
+    def __init__(self, id, name, unit):
         self.id = id
         self.name = name
         self.unit = unit

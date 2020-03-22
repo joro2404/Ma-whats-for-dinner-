@@ -51,10 +51,20 @@ def create_recipe():
             Product.find_by_name(request.form['name_of_product4']).id,
             request.form['units_of_product4'],
             Product.find_by_name(request.form['name_of_product5']).id,
-            request.form['units_of_product5']
+            request.form['units_of_product5'],
+            None,
+            None,
+            None,
+            None,
+            None,
+            None,
+            None,
+            None,
+            None,
+            None,
         )
         Recipe(*values).create()
-        return redirect(url_for('my_recepies'))
+        return redirect(url_for('main.my_recepies'))
 
 
 @main.route('/my_recipes/<int:id>/edit', methods=['GET', 'POST'])
