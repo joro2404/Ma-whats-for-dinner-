@@ -20,7 +20,7 @@ def profile():
 
 @main.route('/recipes')
 def recipes():
-    return render_template('recipes.html')
+    return render_template('recipes.html', recipes=Recipe.all())
 
 
 @main.route('/my_recipes')
