@@ -19,8 +19,9 @@
                     <li class="menu__group"><a href="/register" class="menu__link">Register</a></li>
                 {% endif %}
                 {% if current_user.is_authenticated %}
-                    <li class="menu__group"><a href="/my_recepies" class="menu__link">My Recipes</a></li>
-                    <li class="menu__group"><a href="/profile" class="menu__link">My Profile</a></li>
+                    <li class="menu__group"><a href="/my_recipes" class="menu__link">My Recipes</a></li>
+                    <li class="menu__group"><a href="/create_recipe" class="menu__link">Create</a></li>
+                    <li class="menu__group"><a href="/profile" class="menu__link">Profile</a></li>
                     <li class="menu__group"><a href="/logout" class="menu__link">Logout</a></li>
                 {% endif %}
                 </ul>

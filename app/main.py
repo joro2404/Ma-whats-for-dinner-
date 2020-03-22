@@ -18,6 +18,10 @@ def index():
 def profile():
     return render_template('profile.html')
 
+@main.route('/recipes')
+def recipes():
+    return render_template('recipes.html')
+
 
 @main.route('/my_recipes')
 @login_required
