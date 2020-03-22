@@ -35,5 +35,14 @@
             Hi {{ current_user.username }}!
         {% endif %}
     </div>
+
+    {% for f in fridge %}
+        <div class="card">
+            Name of the product {{ f.find_by_product_id(f.product_id).name }} </br>
+            Quantity: {{ f.quantity }} </br>
+            
+        </div>
+    {% endfor %}
+
 </body>
 </html>

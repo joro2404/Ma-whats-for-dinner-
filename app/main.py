@@ -3,6 +3,7 @@ from flask_login import login_required, current_user
 import sqlite3
 from .product import Product
 from .recipes import Recipe
+from .fridge import Fridge
 
 
 main = Blueprint('main', __name__)
@@ -16,7 +17,7 @@ def index():
 @main.route('/profile')
 @login_required
 def profile():
-    return render_template('profile.html')
+    return render_template('profile.html', products=Fridge.get_by_user_id(current_user.id))
 
 @main.route('/recipes')
 def recipes():

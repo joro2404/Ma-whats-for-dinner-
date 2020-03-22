@@ -25,6 +25,18 @@ CREATE TABLE IF NOT EXISTS products
 ''')
 
 conn.cursor().execute('''
+CREATE TABLE IF NOT EXISTS fridge
+    (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        user_id INTEGER NOT NULL,
+        product_id INTEGER NOT NULL,
+        quantity INTEGER,
+        FOREIGN KEY (user_id) REFERENCES users(id),
+        FOREIGN KEY (product_id) REFERENCES products(id)
+    )
+''')
+
+conn.cursor().execute('''
 CREATE TABLE IF NOT EXISTS recipes
     (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
