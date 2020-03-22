@@ -42,13 +42,18 @@
         <header class="card-header">
             <h1 class="card-title reg">Login</h1>
         </header>
-        <form action = "/login" method ="post">
+        <form action="/login" method="post">
             <div class="form-line">
                 <input type="email" name="email" class="form-input" placeholder="Email address" required>
             </div>
 
             <div class="form-line">
                 <input type="password" name="password" class="form-input" placeholder="Password " required>
+            </div>
+
+            <div class="remember">
+                <input type="checkbox" name="remember" class="">
+                <label for="rememberMe">Remember me</label>
             </div>
 
             <div class="button">
