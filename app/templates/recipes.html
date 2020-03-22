@@ -3,12 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='menu.css') }}">
-    <title>Ma, whats for dinner?</title>
+    <title>Recipes</title>
 </head>
 <body>
-    
     <div style="margin-top: 5rem;">
         <div class="page">
             <nav class="menu">
@@ -29,11 +27,5 @@
         </div>
     </div>
     
-
-    {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            {{ messages[0] }}
-        {% endif %}
-    {% endwith %}
 </body>
 </html>

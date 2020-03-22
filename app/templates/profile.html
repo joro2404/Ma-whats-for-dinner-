@@ -4,15 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='menu.css') }}">
     <title>Index</title>
 </head>
 <body>
-    <div class="navbar">
-        <ul class="navbar_ul">
-            <li class="navbar_li"><a class="active" href="/">Home</a></liclass="navbar_li">
-            <li class="navbar_li logout"><a href="/logout">Logout</a></li>
-            <li class="navbar_li"><a href="#about">About</a></li>
-        </ul>
+    <div style="margin-top: 5rem;">
+        <div class="page">
+            <nav class="menu">
+              <ul class="menu__list">
+                <li class="menu__group"><a href="/" class="menu__link">Home</a></li>
+                <li class="menu__group"><a href="/recipes" class="menu__link">Recepies</a></li>
+                {% if not current_user.is_authenticated %}
+                    <li class="menu__group"><a href="/login" class="menu__link">Log In</a></li>
+                    <li class="menu__group"><a href="/register" class="menu__link">Register</a></li>
+                {% endif %}
+                {% if current_user.is_authenticated %}
+                    <li class="menu__group"><a href="/my_recepies" class="menu__link">My Recipes</a></li>
+                    <li class="menu__group"><a href="/profile" class="menu__link">My Profile</a></li>
+                    <li class="menu__group"><a href="/logout" class="menu__link">Logout</a></li>
+                {% endif %}
+                </ul>
+            </nav>
+        </div>
     </div>
 
     <div class="user">
