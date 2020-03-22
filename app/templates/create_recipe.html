@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='menu.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='create_recipe.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
     <title>Create Recipe</title>
 </head>
 <body>
@@ -12,7 +14,7 @@
             <nav class="menu">
               <ul class="menu__list">
                 <li class="menu__group"><a href="/" class="menu__link">Home</a></li>
-                <li class="menu__group"><a href="/recipes" class="menu__link">Recepies</a></li>
+                <li class="menu__group"><a href="/recipes" class="menu__link">Recipes</a></li>
                 {% if not current_user.is_authenticated %}
                     <li class="menu__group"><a href="/login" class="menu__link">Log In</a></li>
                     <li class="menu__group"><a href="/register" class="menu__link">Register</a></li>
@@ -27,6 +29,50 @@
             </nav>
         </div>
     </div>
+
+
+    <div class="container">
+        <form action="/create_recipe">
+          <div class="row">
+            <div class="col-25">
+              <label for="fname">Recipe Name</label>
+            </div>
+            <div class="col-75">
+              <input type="text" id="fname" name="firstname" placeholder="Your recipe name..">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-25">
+              <label for="country">Number of Products </label>
+            </div>
+            <div class="col-75">
+              <select id="number_of_products" name="number_of_products">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+              </select>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-25">
+              <label for="subject">Description of your Recipe</label>
+            </div>
+            <div class="col-75">
+              <textarea id="subject" name="subject" placeholder="Write something.." style="height:200px"></textarea>
+            </div>
+          </div>
+          <div class="row">
+            <input type="submit" value="Submit">
+          </div>
+        </form>
+      </div>
     
 </body>
 </html>

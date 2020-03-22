@@ -4,7 +4,10 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 
-
+body {
+    background-image: url('backgrounds.png');
+  }
+  
 .navbar_ul {
     list-style-type: none;
     margin: 0;

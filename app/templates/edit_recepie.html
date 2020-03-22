@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Recipe</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
 </head>
 <body>
     <div style="margin-top: 5rem;">
@@ -11,7 +12,7 @@
             <nav class="menu">
               <ul class="menu__list">
                 <li class="menu__group"><a href="/" class="menu__link">Home</a></li>
-                <li class="menu__group"><a href="/recipes" class="menu__link">Recepies</a></li>
+                <li class="menu__group"><a href="/recipes" class="menu__link">Recipes</a></li>
                 {% if not current_user.is_authenticated %}
                     <li class="menu__group"><a href="/login" class="menu__link">Log In</a></li>
                     <li class="menu__group"><a href="/register" class="menu__link">Register</a></li>
