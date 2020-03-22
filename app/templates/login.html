@@ -4,27 +4,55 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='menu.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
     <title>Login</title>
 </head>
 <body>
-    <!-- navbar -->
-    <div class="navbar">
-        <ul class="navbar_ul">
-            <li class="navbar_li"><a href="/">Home</a></li>
-            <li class="navbar_li"><a class="active" href="/login">Login</a></li>
-            <li class="navbar_li"><a href="/register">Register</a></li>
-            <li class="navbar_li"><a href="#about">About</a></li>
-        </ul>
+    <!-- navbar 
+    <div style="margin-top: 5rem;">
+        <div class="page">
+            <nav class="menu">
+              <ul class="menu__list">
+                <li class="menu__group"><a href="/index" class="menu__link">Home</a></li>
+                <li class="menu__group"><a href="/recipes" class="menu__link">Recepies</a></li>
+                {% if not current_user.is_authenticated %}
+                    <li class="menu__group"><a href="/login" class="menu__link">Log In/Register</a></li>
+                {% endif %}
+                {% if current_user.is_authenticated %}
+                    <li class="menu__group"><a href="/my_recepies" class="menu__link">My Recipes</a></li>
+                    <li class="menu__group"><a href="/profile" class="menu__link">My Profile</a></li>
+                {% endif %}
+                </ul>
+            </nav>
+        </div>
     </div>
-    <!-- end -->
+     end -->
+     <div style="margin-top: 5rem;">
+        <div class="page">
+            <nav class="menu">
+              <ul class="menu__list">
+                <li class="menu__group"><a href="/" class="menu__link">Home</a></li>
+                <li class="menu__group"><a href="/recipes" class="menu__link">Recepies</a></li>
+                {% if not current_user.is_authenticated %}
+                    <li class="menu__group"><a href="/login" class="menu__link">Log In</a></li>
+                    <li class="menu__group"><a href="/register" class="menu__link">Register</a></li>
+                {% endif %}
+                {% if current_user.is_authenticated %}
+                    <li class="menu__group"><a href="/my_recepies" class="menu__link">My Recipes</a></li>
+                    <li class="menu__group"><a href="/profile" class="menu__link">My Profile</a></li>
+                {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </div>
     <div class="user">
         {% with messages = get_flashed_messages() %}
         {% if messages %}
             {{ messages[0] }}
         {% endif %}
         {% endwith %}
-        <form class="form" action="/login" method="POST">
+        <!-- <form class="form" action="/login" method="POST">
             
             <div class="form__group">
                 <input name="email" type="email" placeholder="Email" class="form__input" />
@@ -39,7 +67,28 @@
             </div>
             
             <button class="btn" type="submit">Login</button>
-        </form>
+        </form> -->
+
+        <div class='bold-line'></div>
+            
+            <div class='window'>
+                <div class='overlay'></div>
+                <div class='content'>
+                <div class='welcome'>Hello There!</div>
+                <!-- <div class='subtitle'>We're almost done. Before using our services you need to create an account.</div> -->
+                <div class='input-fields'>
+                    <form action="/login" method="POST">
+                        <input name="email" type='email' placeholder='Email' class='input-line full-width'/>
+                        <input name="password" type='password' placeholder='Password' class='input-line full-width'/>
+                        <span>Remember me</span><input name="remember" type='checkbox' placeholder='Password' class='input-line full-width'/>
+                    
+                </div>
+                <div><button type="submit" class='ghost-round full-width'>Log In</button></div>
+                </form>
+                </div>
+            
+            </div>
+
     </div>
 </body>
 </html>
