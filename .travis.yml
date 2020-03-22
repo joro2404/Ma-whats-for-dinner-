@@ -4,6 +4,6 @@ python:
 install:
   - pip install -r requirements.txt
 script:
-  - coverage run -m pytest
+  - coverage run --source=app -m tests.test_auth
 after_success:
   - coveralls
