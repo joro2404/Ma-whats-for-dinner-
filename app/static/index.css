@@ -6,8 +6,10 @@
 
 body {
     background-image: url('backgrounds.png');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
   }
-  
+
 .navbar_ul {
     list-style-type: none;
     margin: 0;
