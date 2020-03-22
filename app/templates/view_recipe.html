@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='menu.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
-    <title>My Recipe</title>
+    <title>Recipe</title>
 </head>
 <body>
     <div style="margin-top: 5rem;">
@@ -28,10 +28,25 @@
             </nav>
         </div>
     </div>
-    {% for recipe in recipes %}
-        <a href="/my_recipes/{{ recipe.id }}">Title: {{ recipe.name }}</a>
-        <br/>
-    {% endfor %}
+    <div class="card">
+        Title: {{ recipe.name }} </br>
+        Description: {{ recipe.description }} </br>
+        {{ product1_id }} 
+        {{ product1_quantity }}
+        </br>
+        {{ product2_id }} 
+        {{ product2_quantity }}
+        </br>
+        {{ product3_id }} 
+        {{ product3_quantity }}
+        </br>
+        {{ product4_id }} 
+        {{ product4_quantity }}
+        </br>
+        {{ product5_id }} 
+        {{ product5_quantity }}
+        </br>
+    </div>
     
 </body>
 </html>

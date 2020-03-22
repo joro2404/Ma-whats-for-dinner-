@@ -42,15 +42,15 @@ def create_recipe():
             current_user.id,
             request.form['describtion'],
             0,
-            Product.find_by_name(request.form['name_of_product1']).id,
+            Product.find_by_name(request.form['name_of_product1']),
             request.form['units_of_product1'],
-            Product.find_by_name(request.form['name_of_product2']).id,
+            Product.find_by_name(request.form['name_of_product2']),
             request.form['units_of_product2'],
-            Product.find_by_name(request.form['name_of_product3']).id,
+            Product.find_by_name(request.form['name_of_product3']),
             request.form['units_of_product3'],
-            Product.find_by_name(request.form['name_of_product4']).id,
+            Product.find_by_name(request.form['name_of_product4']),
             request.form['units_of_product4'],
-            Product.find_by_name(request.form['name_of_product5']).id,
+            Product.find_by_name(request.form['name_of_product5']),
             request.form['units_of_product5'],
             None,
             None,
@@ -64,7 +64,7 @@ def create_recipe():
             None,
         )
         Recipe(*values).create()
-        return redirect(url_for('main.my_recepies'))
+        return redirect(url_for('main.my_recipes'))
 
 
 @main.route('/my_recipes/<int:id>/edit', methods=['GET', 'POST'])
@@ -97,6 +97,12 @@ def delete_recipe(id):
         recipe.delete()
 
     return redirect(url_for('my_recipes'))
+
+@main.route('/my_recipes/<int:id>', methods=['GET', 'POST'])
+@login_required
+def show_recipe(id):
+    recipe = Recipe.find(id)
+    return render_template('view_recipe.html', recipe=recipe)
 
 
 if __name__ == '__main__':
