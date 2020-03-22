@@ -36,23 +36,23 @@ def create_recipe():
     if request.method == 'GET':
         return render_template('create_recipe.html')
     elif request.method == 'POST':
-        number_of_products = request.form['number_of_products']
-        values = [
+        values = (
             None,
-            name,
+            request.form['recipe_name'],
             current_user.id,
-            description,
-            rating
-        ]
-        products = []
-        for i in range(number_of_products):
-            produc_id = '' + (i+1)
-            products[i] = request.form['product_id']
-        values[5] = products
-        if number_of_products < 10:
-            while(number_of_products<10):
-                products[number_of_products] = None
-                number_of_products += 1
+            request.form['describtion'],
+            0,
+            Product.find_by_name(request.form['name_of_product1']).id,
+            request.form['units_of_product1'],
+            Product.find_by_name(request.form['name_of_product2']).id,
+            request.form['units_of_product2'],
+            Product.find_by_name(request.form['name_of_product3']).id,
+            request.form['units_of_product3'],
+            Product.find_by_name(request.form['name_of_product4']).id,
+            request.form['units_of_product4'],
+            Product.find_by_name(request.form['name_of_product5']).id,
+            request.form['units_of_product5']
+        )
         Recipe(*values).create()
         return redirect(url_for('my_recepies'))
 
