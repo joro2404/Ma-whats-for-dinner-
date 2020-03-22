@@ -1,11 +1,9 @@
 from app import create_app
-# from flask import Flask
-# from app.main import app
 import unittest
 
-# app = Flask(__name__)
 
-# create_app()
+app = create_app()
+
 
 class FlaskTestCase(unittest.TestCase):
 

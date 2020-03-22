@@ -48,7 +48,7 @@
             </nav>
         </div>
     </div>
-    <div class="user">
+    <!-- <div class="user"> -->
         {% with messages = get_flashed_messages() %}
         {% if messages %}
             {{ messages[0] }}
@@ -76,21 +76,21 @@
             <div class='window'>
                 <div class='overlay'></div>
                 <div class='content'>
-                <div class='welcome'>Hello There!</div>
-                <!-- <div class='subtitle'>We're almost done. Before using our services you need to create an account.</div> -->
-                <div class='input-fields'>
-                    <form action="/login" method="POST">
-                        <input name="email" type='email' placeholder='Email' class='input-line full-width'/>
-                        <input name="password" type='password' placeholder='Password' class='input-line full-width'/>
-                        <span>Remember me</span><input name="remember" type='checkbox' placeholder='Password' class='input-line full-width'/>
-                    
-                </div>
-                <div><button type="submit" class='ghost-round full-width'>Log In</button></div>
-                </form>
+                    <div class='welcome'>Hello There!</div>
+                    <!-- <div class='subtitle'>We're almost done. Before using our services you need to create an account.</div> -->
+                    <div class='input-fields'>
+                        <form action="/login" method="POST">
+                            <input name="email" type='email' placeholder='Email' class='input-line full-width'/>
+                            <input name="password" type='password' placeholder='Password' class='input-line full-width'/>
+                            <input name="remember" type='checkbox' placeholder='Password' class='input-line'/> Remember me
+                        
+                        <div><button type="submit" class='ghost-round full-width'>Log In</button></div>
+                        </form>
+                    </div>
                 </div>
             
             </div>
 
-    </div>
+    <!-- </div> -->
 </body>
 </html>
