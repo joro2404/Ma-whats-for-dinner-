@@ -1,5 +1,6 @@
 from app import create_app
 import unittest
+import pytest
 
 
 app = create_app()
