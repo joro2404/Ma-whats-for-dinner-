@@ -19,6 +19,7 @@ def index():
 def profile():
     return render_template('profile.html', products=Fridge.get_by_user_id(current_user.id))
 
+
 @main.route('/recipes')
 def recipes():
     return render_template('recipes.html', recipes=Recipe.all())
@@ -98,6 +99,7 @@ def delete_recipe(id):
         recipe.delete()
 
     return redirect(url_for('my_recipes'))
+
 
 @main.route('/my_recipes/<int:id>', methods=['GET', 'POST'])
 @login_required

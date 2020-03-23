@@ -30,18 +30,19 @@
         </div>
     </div>
 
-    <div class="user">
+    <div class="hi">
         {% if current_user.is_authenticated %}
             Hi {{ current_user.username }}!
         {% endif %}
     </div>
 
-    {% for f in fridge %}
-        <div class="card">
-            Name of the product {{ f.find_by_product_id(f.product_id).name }} </br>
-            Quantity: {{ f.quantity }} </br>
-            
-        </div>
+    
+    {% for f in products %}
+    <div class="card">
+        Name of the product {{ f.find_by_product_id(f.product_id).name }} </br>
+        Quantity: {{ f.quantity }} </br>
+        Unit: {{ f.find_by_product_id(f.product_id).unit }}  </br>
+    </div>
     {% endfor %}
 
 </body>

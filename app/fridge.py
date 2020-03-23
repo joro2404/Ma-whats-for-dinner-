@@ -3,12 +3,11 @@ from .product import Product
 
 
 class Fridge:
-    def __init__(self, id, user_id, pdocut_id, quantity):
+    def __init__(self, id, user_id, product_id, quantity):
         self.id = id
         self.user_id = user_id
-        self.product_id = prduct_id
+        self.product_id = product_id
         self.quantity = quantity
-
 
 
     @staticmethod
@@ -23,6 +22,7 @@ class Fridge:
         with DB() as db:
             row = db.execute('SELECT * FROM fridge WHERE id = ?',(id,)).fetchone()
             return Fridge(*row)
+
 
     @staticmethod
     def find_by_product_id(product_id):

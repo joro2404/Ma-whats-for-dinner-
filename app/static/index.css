@@ -109,3 +109,12 @@ body {
     margin: auto;
     
 }
+
+.hi {
+    max-width: 700;
+    width: 100%;
+    margin-top: 70px;
+    /* margin-left: auto; */
+    text-align: center;
+    font-size: 32px;
+}
