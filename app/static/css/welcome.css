@@ -2,7 +2,7 @@
 @import url(https://fonts.googleapis.com/css?family=Arvo:700);
 @import url(https://fonts.googleapis.com/css?family=Seaweed+Script);
 body {
-  background-image: url('backgrounds.png');
+  background-image: url('../img/backgrounds.png');
 }
 .plate {
   width: 410px;

@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='menu.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/menu.css') }}">
     
     <title>Index</title>
 </head>
@@ -32,7 +32,7 @@
 
     <div class="hi">
         {% if current_user.is_authenticated %}
-            Hi {{ current_user.username }}!
+            Hi {{ current_user.username }} {{ current_user.id }}!
         {% endif %}
     </div>
 

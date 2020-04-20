@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='menu.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='create_recipe.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/menu.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/create_recipe.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="{{ url_for('static', filename='js/add_field.js') }}"></script>
     <title>Create Recipe</title>
 </head>
 <body>
@@ -15,16 +17,10 @@
               <ul class="menu__list">
                 <li class="menu__group"><a href="/" class="menu__link">Home</a></li>
                 <li class="menu__group"><a href="/recipes" class="menu__link">Recipes</a></li>
-                {% if not current_user.is_authenticated %}
-                    <li class="menu__group"><a href="/login" class="menu__link">Log In</a></li>
-                    <li class="menu__group"><a href="/register" class="menu__link">Register</a></li>
-                {% endif %}
-                {% if current_user.is_authenticated %}
-                    <li class="menu__group"><a href="/my_recipes" class="menu__link">My Recipes</a></li>
-                    <li class="menu__group"><a href="/create_recipe" class="menu__link">Create</a></li>
-                    <li class="menu__group"><a href="/profile" class="menu__link">Profile</a></li>
-                    <li class="menu__group"><a href="/logout" class="menu__link">Logout</a></li>
-                {% endif %}
+                <li class="menu__group"><a href="/my_recipes" class="menu__link">My Recipes</a></li>
+                <li class="menu__group"><a href="/create_recipe" class="menu__link">Create</a></li>
+                <li class="menu__group"><a href="/profile" class="menu__link">Profile</a></li>
+                <li class="menu__group"><a href="/logout" class="menu__link">Logout</a></li>
                 </ul>
             </nav>
         </div>
@@ -38,116 +34,80 @@
               <label for="fname">Recipe Name</label>
             </div>
             <div class="col-75">
-              <input type="text" id="fname" name="recipe_name" placeholder="Your recipe name..">
+              <input type="text" id="fname" name="recipe_name" placeholder="Your recipe name...">
             </div>
           </div>
-          <div class="row">
-            <div class="col-25">
-              <label for="country">Product 1</label>
-            </div>
-            <div class="col-75">
-              <select id="name_of_product1" name="name_of_product1">
-                <option value="Milk">Milk</option>
-                <option value="Flour">Flour</option>
-                <option value="Cheese">Cheese</option>
-                <option value="Yellow Cheese">Yellow Cheese</option>
-                <option value="Eggs">Eggs</option>
-                <option value="Sugar">Sugar</option>
-                <option value="Chocolate">Chocolate</option>
-                <option value="Yeast">Yeast</option>
-                <option value="Tomato">Tomato</option>
-                <option value="Cucumber">Cucumber</option>
-                <option value="Potato">Potato</option>
-                <option value="Banana">Banana</option>
-                <option value="Stawberry">Stawberry</option>
-                <option value="Blackberry">Blackberry</option>
-                <option value="Lemon">Lemon</option>
-              </select>
-              <input type="text" id="fname" name="units_of_product1" placeholder="Only number of units!">
+
+          <button class="add_form_field">Add</button>
+          
+          <div class="container_fields">
+            <div class="row">
+              <div class="col-25">
+                <label>Product 1</label>
+              </div>
+              <div class="col-75">
+                <select name="id_of_product1">
+                  {% for product in products %}
+                    <option value="{{ product.id }}">{{ product.name }} ({{ product.unit }})</option>
+                  {% endfor %}
+                </select>
+                <input type="number" name="quantity_of_product1" placeholder="Quantity!">
+              </div>
             </div>
           </div>
+
           <div class="row">
             <div class="col-25">
               <label for="country">Product 2</label>
             </div>
             <div class="col-75">
-              <select id="name_of_product2" name="name_of_product2">
-                <option value="Milk">Milk</option>
-                <option value="Flour">Flour</option>
-                <option value="Cheese">Cheese</option>
-                <option value="Yellow Cheese">Yellow Cheese</option>
-                <option value="Eggs">Eggs</option>
-                <option value="Sugar">Sugar</option>
-                <option value="Chocolate">Chocolate</option>
-                <option value="Yeast">Yeast</option>
-                <option value="Tomato">Tomato</option>
-                <option value="Cucumber">Cucumber</option>
-                <option value="Potato">Potato</option>
-                <option value="Banana">Banana</option>
-                <option value="Stawberry">Stawberry</option>
-                <option value="Blackberry">Blackberry</option>
-                <option value="Lemon">Lemon</option>
+              <select name="id_of_product2">
+                {% for product in products %}
+                  <option value="{{ product.id }}">{{ product.name }} ({{ product.unit }})</option>
+                {% endfor %}
               </select>
-              <input type="text" id="fname" name="units_of_product2" placeholder="Only number of units!">
+              <input type="number" name="quantity_of_product2" placeholder="Quantity!">
             </div>
           </div>
+
           <div class="row">
             <div class="col-25">
               <label for="country">Product 3</label>
             </div>
             <div class="col-75">
-              <select id="name_of_product3" name="name_of_product3">
-                <option value="Milk">Milk</option>
-                <option value="Flour">Flour</option>
-                <option value="Cheese">Cheese</option>
-                <option value="Yellow Cheese">Yellow Cheese</option>
-                <option value="Eggs">Eggs</option>
-                <option value="Sugar">Sugar</option>
-                <option value="Chocolate">Chocolate</option>
-                <option value="Yeast">Yeast</option>
-                <option value="Tomato">Tomato</option>
-                <option value="Cucumber">Cucumber</option>
-                <option value="Potato">Potato</option>
-                <option value="Banana">Banana</option>
-                <option value="Stawberry">Stawberry</option>
-                <option value="Blackberry">Blackberry</option>
-                <option value="Lemon">Lemon</option>
+              <select name="id_of_product3">
+                {% for product in products %}
+                  <option value="{{ product.id }}">{{ product.name }} ({{ product.unit }})</option>
+                {% endfor %}
               </select>
-              <input type="text" id="fname" name="units_of_product3" placeholder="Only number of units!">
+              <input type="number" name="quantity_of_product3" placeholder="Quantity!">
             </div>
           </div>
+
           <div class="row">
             <div class="col-25">
               <label for="country">Product 4</label>
             </div>
             <div class="col-75">
-              <select id="name_of_product4" name="name_of_product4">
-                <option value="Milk">Milk</option>
-                <option value="Flour">Flour</option>
-                <option value="Cheese">Cheese</option>
-                <option value="Yellow Cheese">Yellow Cheese</option>
-                <option value="Eggs">Eggs</option>
-                <option value="Sugar">Sugar</option>
-                <option value="Chocolate">Chocolate</option>
-                <option value="Yeast">Yeast</option>
-                <option value="Tomato">Tomato</option>
-                <option value="Cucumber">Cucumber</option>
-                <option value="Potato">Potato</option>
-                <option value="Banana">Banana</option>
-                <option value="Stawberry">Stawberry</option>
-                <option value="Blackberry">Blackberry</option>
-                <option value="Lemon">Lemon</option>
+              <select name="id_of_product4">
+                {% for product in products %}
+                  <option value="{{ product.id }}">{{ product.name }} ({{ product.unit }})</option>
+                {% endfor %}
               </select>
-              <input type="text" id="fname" name="units_of_product4" placeholder="Only number of units!">
+              <input type="number" name="quantity_of_product4" placeholder="Quantity!">
             </div>
           </div>
+
           <div class="row">
             <div class="col-25">
               <label for="country">Product 5</label>
             </div>
             <div class="col-75">
-              <select id="name_of_product5" name="name_of_product5">
-                <option value="Milk">Milk</option>
+              <select name="id_of_product5">
+                {% for product in products %}
+                  <option value="{{ product.id }}">{{ product.name }} ({{ product.unit }})</option>
+                {% endfor %}
+                <!-- <option value="Milk">Milk</option>
                 <option value="Flour">Flour</option>
                 <option value="Cheese">Cheese</option>
                 <option value="Yellow Cheese">Yellow Cheese</option>
@@ -161,17 +121,27 @@
                 <option value="Banana">Banana</option>
                 <option value="Stawberry">Stawberry</option>
                 <option value="Blackberry">Blackberry</option>
-                <option value="Lemon">Lemon</option>
+                <option value="Lemon">Lemon</option> -->
               </select>
-              <input type="text" id="fname" name="units_of_product5" placeholder="Only number of units!">
+              <input type="number" name="quantity_of_product5" placeholder="Quantity!">
             </div>
           </div>
+
           <div class="row">
             <div class="col-25">
-              <label for="subject">Description of your Recipe</label>
+              <label>Time to prepare</label>
             </div>
             <div class="col-75">
-              <textarea id="subject" name="describtion" placeholder="Write something.." style="height:200px"></textarea>
+              <input type="number" name="time" placeholder="Time to prepare">
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-25">
+              <label>Description of your Recipe</label>
+            </div>
+            <div class="col-75">
+              <textarea name="description" placeholder="Write something.." style="height:200px"></textarea>
             </div>
           </div>
           <div class="row">

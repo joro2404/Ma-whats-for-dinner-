@@ -5,7 +5,7 @@
 }
 
 body {
-    background-image: url('backgrounds.png');
+    background-image: url('../img/backgrounds.png');
     background-repeat: no-repeat;
     background-attachment: fixed;
 }

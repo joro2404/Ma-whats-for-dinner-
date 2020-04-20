@@ -4,6 +4,7 @@ import sqlite3
 from .product import Product
 from .recipes import Recipe
 from .fridge import Fridge
+from .ingredient import Ingredient
 
 
 main = Blueprint('main', __name__)
@@ -25,48 +26,52 @@ def recipes():
     return render_template('recipes.html', recipes=Recipe.all())
 
 
-@main.route('/my_recipes')
-@login_required
-def my_recipes():
-    #current user again
-    return render_template('my_recipes.html', recipes=Recipe.get_by_user_id(current_user.id))
+@main.route('/recipes/<int:id>', methods=['GET', 'POST'])
+def show_recipe(id):
+    recipe = Recipe.find(id)
+    user_id = str(current_user.id)
+    ingredients = Ingredient.find_by_recipe_id(recipe.id)
+    return render_template('view_recipe.html', recipe=recipe, user_id=user_id, ingredients=ingredients, product=Product)
 
 
 @main.route('/create_recipe', methods=['GET', 'POST'])
 @login_required
 def create_recipe():
     if request.method == 'GET':
-        return render_template('create_recipe.html')
+        return render_template('create_recipe.html', products=Product.all())
     elif request.method == 'POST':
         values = (
             None,
             request.form['recipe_name'],
             current_user.id,
-            request.form['describtion'],
+            request.form['description'],
             0,
-            Product.find_by_name(request.form['name_of_product1']),
-            request.form['units_of_product1'],
-            Product.find_by_name(request.form['name_of_product2']),
-            request.form['units_of_product2'],
-            Product.find_by_name(request.form['name_of_product3']),
-            request.form['units_of_product3'],
-            Product.find_by_name(request.form['name_of_product4']),
-            request.form['units_of_product4'],
-            Product.find_by_name(request.form['name_of_product5']),
-            request.form['units_of_product5'],
-            None,
-            None,
-            None,
-            None,
-            None,
-            None,
-            None,
-            None,
-            None,
-            None,
+            request.form['time']
         )
         Recipe(*values).create()
+
+        recipe_id = Recipe.find_last_id()[0]
+
+        ingredients = [
+            None,
+            recipe_id,
+            None,
+            None
+        ]
+        i = 1
+        while(request.form.get('id_of_product' + str(i)) is not None):
+            ingredients[2] = request.form.get('id_of_product' + str(i))
+            ingredients[3] = request.form.get('quantity_of_product' + str(i))
+            Ingredient(*ingredients).create()
+            i += 1
+
         return redirect(url_for('main.my_recipes'))
+
+
+@main.route('/my_recipes')
+@login_required
+def my_recipes():
+    return render_template('my_recipes.html', recipes=Recipe.get_by_user_id(current_user.id))
 
 
 @main.route('/my_recipes/<int:id>/edit', methods=['GET', 'POST'])
@@ -91,21 +96,14 @@ def edit_recipe(id):
         return redirect(url_for('my_recipes'))
 
 
-@main.route('/my_recipes/<int:id>/delete', methods=['GET', 'POST'])
+@main.route('/my_recipes/<int:id>/delete', methods=['POST'])
 @login_required
 def delete_recipe(id):
     recipe = Recipe.find(id)
-    if recipe.user_id == current_user.id:
+    if int(recipe.user_id) == current_user.id:
         recipe.delete()
 
-    return redirect(url_for('my_recipes'))
-
-
-@main.route('/my_recipes/<int:id>', methods=['GET', 'POST'])
-@login_required
-def show_recipe(id):
-    recipe = Recipe.find(id)
-    return render_template('view_recipe.html', recipe=recipe)
+    return redirect(url_for('main.my_recipes'))
 
 
 if __name__ == '__main__':

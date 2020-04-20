@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='menu.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/menu.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
     <title>Recipe</title>
 </head>
 <body>
@@ -31,21 +31,16 @@
     <div class="card">
         Title: {{ recipe.name }} </br>
         Description: {{ recipe.description }} </br>
-        {{ product1_id }} 
-        {{ product1_quantity }}
-        </br>
-        {{ product2_id }} 
-        {{ product2_quantity }}
-        </br>
-        {{ product3_id }} 
-        {{ product3_quantity }}
-        </br>
-        {{ product4_id }} 
-        {{ product4_quantity }}
-        </br>
-        {{ product5_id }} 
-        {{ product5_quantity }}
-        </br>
+        {% for ingredient in ingredients %}
+            {{ product.find(ingredient.product_id).name }} <br>
+            {{ ingredient.quantity }} {{ product.find(ingredient.product_id).unit }} <br>
+        {% endfor %}
+
+        {% if user_id == recipe.user_id %}
+            <form action="/my_recipes/{{ recipe.id }}/delete" method="POST">
+                <button type="submit">Delete</button>
+            </form>
+        {% endif %}
     </div>
     
 </body>
