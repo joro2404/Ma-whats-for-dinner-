@@ -20,10 +20,10 @@ class Recipe:
 
     def create(self):
         with DB() as db:
-            values = (self.name, self.user_id, self.description, self.time)
+            values = (self.name, self.user_id, self.description, self.rating, self.time)
             db.execute('''
-                INSERT INTO recipes(name, user_id, description, time)
-                VALUES (?, ?, ?, ?)''', values)
+                INSERT INTO recipes(name, user_id, description, rating, time)
+                VALUES (?, ?, ?, ?, ?)''', values)
             return self
 
 

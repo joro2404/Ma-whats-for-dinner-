@@ -18,7 +18,42 @@ def index():
 @main.route('/profile')
 @login_required
 def profile():
-    return render_template('profile.html', products=Fridge.get_by_user_id(current_user.id))
+    user_products=Fridge.get_by_user_id(current_user.id)
+    all_recipes = Recipe.all()
+    count_of_fullfilled_recipes = 0
+    suggested_recipe = Recipe(0, "suggestion failled", 0, "suggestion failled", 0, 0)
+
+    for current_recipe in all_recipes:
+        current_ingredients = Ingredient.find_by_recipe_id(current_recipe.id)
+        ingredient_fullfilled = 0
+        ingredient_passed = 0
+        suggestion_failed = 0
+
+        for i in current_ingredients:
+            ingredient_passed += 1
+
+            for j in user_products:
+                if j.id == i.id and j.quantity >= i.quantity:
+                    ingredient_fullfilled += 1
+
+            if ingredient_passed != ingredient_fullfilled:
+                suggestion_failed += 1
+                break
+
+        if suggestion_failed == 0:
+            count_of_fullfilled_recipes += 1
+
+            if count_of_fullfilled_recipes == 1:
+                suggested_recipe = current_recipe
+
+            else if count_of_fullfilled_recipes > 1:
+                if suggested_recipe.rating < current_recipe.rating:
+                    suggested_recipe = current_recipe
+        
+
+
+
+    return render_template('profile.html', user_products, suggested_recipe)
 
 
 @main.route('/recipes')
@@ -58,7 +93,7 @@ def create_recipe():
             request.form['recipe_name'],
             current_user.id,
             request.form['description'],
-            0,
+            0.0,
             request.form['time']
         )
         Recipe(*values).create()

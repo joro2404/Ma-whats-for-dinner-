@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS recipes
         name TEXT NOT NULL,
         user_id TEXT NOT NULL,
         description TEXT NOT NULL,
-        rating INTEGER,
+        rating DOUBLE(1, 1) NOT NULL,
         time INTEGER
     )
 ''')

@@ -23,3 +23,5 @@ class Ingredient:
         with DB() as db:
             rows = db.execute('SELECT * FROM ingredients WHERE recipe_id = ?', (recipe_id,)).fetchall()
             return [Ingredient(*row) for row in rows]
+
+    
