@@ -22,6 +22,8 @@
                 <div class="row">\
                     <div class="col-25">\
                     <label>Product ' + x + '</label>\
+                    <br>\
+                    <a href="#" class="delete">Remove</a>\
                     </div>\
                     <div class="col-75">\
                     <select name="id_of_product' + x + '">\
@@ -29,7 +31,7 @@
                             <option value="{{ product.id }}">{{ product.name }} ({{ product.unit }})</option>\
                         {% endfor %}\
                     </select>\
-                    <input type="number" name="quantity_of_product' + x + '" placeholder="Quantity!">\
+                    <input type="number" min="0" name="quantity_of_product' + x + '" placeholder="Quantity!">\
                     </div>\
                 </div>\
                 ');
@@ -40,7 +42,7 @@
 
         $(wrapper).on("click", ".delete", function(e) {
             e.preventDefault();
-            $(this).parent('div').remove();
+            $(this).parent('div').parent('div').remove();
             x--;
         })
       });
@@ -67,10 +69,10 @@
         <form action="/create_recipe" method="POST">
           <div class="row">
             <div class="col-25">
-              <label for="fname">Recipe Name</label>
+              <label>Recipe Name</label>
             </div>
             <div class="col-75">
-              <input type="text" id="fname" name="recipe_name" placeholder="Your recipe name...">
+              <input type="text" name="recipe_name" placeholder="Your recipe name...">
             </div>
           </div>
           
@@ -85,7 +87,7 @@
                     <option value="{{ product.id }}">{{ product.name }} ({{ product.unit }})</option>
                   {% endfor %}
                 </select>
-                <input type="number" name="quantity_of_product1" placeholder="Quantity!">
+                <input type="number" min="0" name="quantity_of_product1" placeholder="Quantity!">
               </div>
             </div>
           </div>
@@ -99,7 +101,7 @@
               <label>Time to prepare</label>
             </div>
             <div class="col-75">
-              <input type="number" name="time" placeholder="Time to prepare">
+              <input type="number" min="0" name="time" placeholder="Time to prepare">
             </div>
           </div>
 

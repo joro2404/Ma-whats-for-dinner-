@@ -29,6 +29,11 @@ input[type=submit], .add_form_field {
   margin-top: 5px;
 }
 
+.delete {
+  text-decoration: none;
+  color: red;
+}
+
 input[type=submit]:hover {
   background-color: #6c5ce7;
 }
