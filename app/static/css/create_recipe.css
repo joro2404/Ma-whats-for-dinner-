@@ -15,7 +15,7 @@ label {
   display: inline-block;
 }
 
-input[type=submit] {
+input[type=submit], .add_form_field {
   background-color: #6c5ce7;
   color: white;
   padding: 12px 20px;
@@ -23,6 +23,10 @@ input[type=submit] {
   border-radius: 4px;
   cursor: pointer;
   float: right;
+}
+
+.add_form_field {
+  margin-top: 5px;
 }
 
 input[type=submit]:hover {

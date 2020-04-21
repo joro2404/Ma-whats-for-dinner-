@@ -7,7 +7,44 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/create_recipe.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="{{ url_for('static', filename='js/add_field.js') }}"></script>
+    <script type="text/javascript">
+      $(document).ready(function() {
+        var max_fields = 10;
+        var wrapper = $(".container_fields");
+        var add_button = $(".add_form_field");
+
+        var x = 1;
+        $(add_button).click(function(e) {
+            e.preventDefault();
+            if (x < max_fields) {
+                x++;
+                $(wrapper).append('\
+                <div class="row">\
+                    <div class="col-25">\
+                    <label>Product ' + x + '</label>\
+                    </div>\
+                    <div class="col-75">\
+                    <select name="id_of_product' + x + '">\
+                        {% for product in products %}\
+                            <option value="{{ product.id }}">{{ product.name }} ({{ product.unit }})</option>\
+                        {% endfor %}\
+                    </select>\
+                    <input type="number" name="quantity_of_product' + x + '" placeholder="Quantity!">\
+                    </div>\
+                </div>\
+                ');
+            } else {
+                alert('You Reached the limits')
+            }
+        });
+
+        $(wrapper).on("click", ".delete", function(e) {
+            e.preventDefault();
+            $(this).parent('div').remove();
+            x--;
+        })
+      });
+    </script>
     <title>Create Recipe</title>
 </head>
 <body>
@@ -26,7 +63,6 @@
         </div>
     </div>
 
-
     <div class="container">
         <form action="/create_recipe" method="POST">
           <div class="row">
@@ -37,8 +73,6 @@
               <input type="text" id="fname" name="recipe_name" placeholder="Your recipe name...">
             </div>
           </div>
-
-          <button class="add_form_field">Add</button>
           
           <div class="container_fields">
             <div class="row">
@@ -57,74 +91,7 @@
           </div>
 
           <div class="row">
-            <div class="col-25">
-              <label for="country">Product 2</label>
-            </div>
-            <div class="col-75">
-              <select name="id_of_product2">
-                {% for product in products %}
-                  <option value="{{ product.id }}">{{ product.name }} ({{ product.unit }})</option>
-                {% endfor %}
-              </select>
-              <input type="number" name="quantity_of_product2" placeholder="Quantity!">
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-25">
-              <label for="country">Product 3</label>
-            </div>
-            <div class="col-75">
-              <select name="id_of_product3">
-                {% for product in products %}
-                  <option value="{{ product.id }}">{{ product.name }} ({{ product.unit }})</option>
-                {% endfor %}
-              </select>
-              <input type="number" name="quantity_of_product3" placeholder="Quantity!">
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-25">
-              <label for="country">Product 4</label>
-            </div>
-            <div class="col-75">
-              <select name="id_of_product4">
-                {% for product in products %}
-                  <option value="{{ product.id }}">{{ product.name }} ({{ product.unit }})</option>
-                {% endfor %}
-              </select>
-              <input type="number" name="quantity_of_product4" placeholder="Quantity!">
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-25">
-              <label for="country">Product 5</label>
-            </div>
-            <div class="col-75">
-              <select name="id_of_product5">
-                {% for product in products %}
-                  <option value="{{ product.id }}">{{ product.name }} ({{ product.unit }})</option>
-                {% endfor %}
-                <!-- <option value="Milk">Milk</option>
-                <option value="Flour">Flour</option>
-                <option value="Cheese">Cheese</option>
-                <option value="Yellow Cheese">Yellow Cheese</option>
-                <option value="Eggs">Eggs</option>
-                <option value="Sugar">Sugar</option>
-                <option value="Chocolate">Chocolate</option>
-                <option value="Yeast">Yeast</option>
-                <option value="Tomato">Tomato</option>
-                <option value="Cucumber">Cucumber</option>
-                <option value="Potato">Potato</option>
-                <option value="Banana">Banana</option>
-                <option value="Stawberry">Stawberry</option>
-                <option value="Blackberry">Blackberry</option>
-                <option value="Lemon">Lemon</option> -->
-              </select>
-              <input type="number" name="quantity_of_product5" placeholder="Quantity!">
-            </div>
+              <button class="add_form_field">Add</button>
           </div>
 
           <div class="row">

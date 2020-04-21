@@ -38,7 +38,15 @@ def show_recipe(id):
 @login_required
 def create_recipe():
     if request.method == 'GET':
-        return render_template('create_recipe.html', products=Product.all())
+        products = Product.all()
+        ids = []
+        names = []
+        units = []
+        for product in products:
+            ids.append(product.id)
+            names.append(product.name)
+            units.append(product.unit)
+        return render_template('create_recipe.html', products=products, ids=ids, names=names, units=units)
     elif request.method == 'POST':
         values = (
             None,
