@@ -46,14 +46,14 @@ def profile():
             if count_of_fullfilled_recipes == 1:
                 suggested_recipe = current_recipe
 
-            else if count_of_fullfilled_recipes > 1:
+            elif count_of_fullfilled_recipes > 1:
                 if suggested_recipe.rating < current_recipe.rating:
                     suggested_recipe = current_recipe
         
 
 
 
-    return render_template('profile.html', user_products, suggested_recipe)
+    return render_template('profile.html', products=user_products, suggested_recipe=suggested_recipe)
 
 
 @main.route('/recipes')

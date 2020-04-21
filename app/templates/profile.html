@@ -45,5 +45,14 @@
     </div>
     {% endfor %}
 
+    <div class="card">
+        {% if suggested_recipe.name == "suggestion failled" %}
+            Daily Suggestion: You don't have enough products! </br>
+        {% endif %}
+        {% if suggested_recipe.name != "suggestion failled" %}
+            Daily Suggestion:  <a href="/recipes/{{ suggested_recipe.id }}">Click here for preview!</a> </br>
+        {% endif %}
+    </div>
+
 </body>
 </html>
