@@ -28,10 +28,15 @@ def recipes():
 
 @main.route('/recipes/<int:id>', methods=['GET', 'POST'])
 def show_recipe(id):
-    recipe = Recipe.find(id)
-    user_id = str(current_user.id)
-    ingredients = Ingredient.find_by_recipe_id(recipe.id)
-    return render_template('view_recipe.html', recipe=recipe, user_id=user_id, ingredients=ingredients, product=Product)
+    if current_user.is_authenticated:
+        recipe = Recipe.find(id)
+        user_id = str(current_user.id)
+        ingredients = Ingredient.find_by_recipe_id(recipe.id)
+        return render_template('view_recipe.html', recipe=recipe, user_id=user_id, ingredients=ingredients, product=Product)
+    else:
+        recipe = Recipe.find(id)
+        ingredients = Ingredient.find_by_recipe_id(recipe.id)
+        return render_template('view_recipe.html', recipe=recipe, ingredients=ingredients, product=Product)
 
 
 @main.route('/create_recipe', methods=['GET', 'POST'])
