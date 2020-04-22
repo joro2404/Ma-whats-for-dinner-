@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/menu.css') }}">
+    <title>Edit Recipe</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/create_recipe.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/menu.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script type="text/javascript">
@@ -12,8 +13,8 @@
             var max_fields = 10;
             var wrapper = $(".container_fields");
             var add_button = $(".add_form_field");
-
-            var x = 1;
+    
+            var x = {{ number_of_ingredients|tojson }};
             $(add_button).click(function(e) {
                 e.preventDefault();
                 if (x < max_fields) {
@@ -39,7 +40,7 @@
                     alert('You Reached the limits')
                 }
             });
-
+    
             $(wrapper).on("click", ".delete", function(e) {
                 e.preventDefault();
                 $(this).parent('div').parent('div').remove();
@@ -47,7 +48,6 @@
             })
         });
     </script>
-    <title>Create Recipe</title>
 </head>
 <body>
     <div style="margin-top: 5rem;">
@@ -66,58 +66,64 @@
     </div>
 
     <div class="container">
-        <form action="/create_recipe" method="POST">
-          <div class="row">
-            <div class="col-25">
-              <label>Recipe Name</label>
-            </div>
-            <div class="col-75">
-              <input type="text" name="recipe_name" placeholder="Your recipe name...">
-            </div>
-          </div>
-          
-          <div class="container_fields">
+        <form action="/recipes/{{ recipe.id }}/edit" method="POST">
             <div class="row">
-              <div class="col-25">
-                <label>Product 1</label>
-              </div>
-              <div class="col-75">
-                <select name="id_of_product1">
-                    {% for product in products %}
-                        <option value="{{ product.id }}">{{ product.name }} ({{ product.unit }})</option>
-                    {% endfor %}
-                </select>
-                <input type="number" min="0" name="quantity_of_product1" placeholder="Quantity!">
-              </div>
+                <div class="col-25">
+                    <label>Recipe Name</label>
+                </div>
+                <div class="col-75">
+                    <input type="text" name="recipe_name" placeholder="Your recipe name..." value="{{ recipe.name }}">
+                </div>
             </div>
-          </div>
+          
+            <div class="container_fields">
+                {% for i in range(number_of_ingredients) %}
+                    <div class="row">
+                        <div class="col-25">
+                            <label>Product {{ i + 1 }}</label>
+                            <br>
+                            <a href="#" class="delete">Remove</a>
+                        </div>
+                        <div class="col-75">
+                            <select name="id_of_product1">
+                                <option value="{{ ingredients[i].product_id }}">{{ Product.find(ingredients[i].product_id).name }} ({{ Product.find(ingredients[i].product_id).unit }})</option>
+                                {% for product in products %}
+                                    {% if product.id != ingredients[i].product_id %}
+                                        <option value="{{ product.id }}">{{ product.name }} ({{ product.unit }})</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
+                            <input type="number" min="0" name="quantity_of_product1" placeholder="Quantity!" value="{{ ingredients[i].quantity }}">
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
 
-          <div class="row">
-              <button class="add_form_field">Add</button>
-          </div>
+            <div class="row">
+                <button class="add_form_field">Add</button>
+            </div>
 
-          <div class="row">
-            <div class="col-25">
-              <label>Time to prepare</label>
+            <div class="row">
+                <div class="col-25">
+                    <label>Time to prepare</label>
+                </div>
+                <div class="col-75">
+                    <input type="number" min="0" name="time" placeholder="Time to prepare" value="{{ recipe.time }}">
+                </div>
             </div>
-            <div class="col-75">
-              <input type="number" min="0" name="time" placeholder="Time to prepare">
-            </div>
-          </div>
 
-          <div class="row">
-            <div class="col-25">
-              <label>Description of your Recipe</label>
+            <div class="row">
+                <div class="col-25">
+                    <label>Description of your Recipe</label>
+                </div>
+                <div class="col-75">
+                    <textarea name="description" placeholder="Write something.." style="height:200px">{{ recipe.description }}</textarea>
+                </div>
             </div>
-            <div class="col-75">
-              <textarea name="description" placeholder="Write something.." style="height:200px"></textarea>
+            <div class="row">
+                <input type="submit" value="Update">
             </div>
-          </div>
-          <div class="row">
-            <input type="submit" value="Submit">
-          </div>
         </form>
-      </div>
-    
+    </div>
 </body>
 </html>
