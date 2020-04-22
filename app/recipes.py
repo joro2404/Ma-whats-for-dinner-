@@ -61,13 +61,9 @@ class Recipe:
             return [Recipe(*row) for row in rows]
 
 
-    def save(self, products):
+    def save(self):
         with DB() as db:
-            # tuka nz kvo se sluchva oshte
-            values = [self.name, self.description]
-            for i in range(10):
-                values[i+2] = products[i]
-            values[12] = self.id
+            values = (self.name, self.description, self.time, self.id)
             db.execute('UPDATE recipes SET name = ?, description = ?, time = ? WHERE id = ?', values)
             return self
 

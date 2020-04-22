@@ -15,7 +15,14 @@ class Ingredient:
             db.execute('''
                 INSERT INTO ingredients(recipe_id, product_id, quantity)
                 VALUES (?, ?, ?)''', values)
-            return self 
+            return self
+
+
+    @staticmethod
+    def find(id):
+        with DB() as db:
+            row = db.execute('SELECT * FROM ingredients WHERE id = ?',(id,)).fetchone()
+            return Ingredient(*row)
 
 
     @staticmethod
@@ -23,3 +30,15 @@ class Ingredient:
         with DB() as db:
             rows = db.execute('SELECT * FROM ingredients WHERE recipe_id = ?', (recipe_id,)).fetchall()
             return [Ingredient(*row) for row in rows]
+
+
+    @staticmethod
+    def delete_by_recipe(recipe_id):
+        with DB() as db:
+            db.execute('DELETE FROM ingredients WHERE recipe_id = ?', (recipe_id,))
+
+    
+    def delete(self):
+        with DB() as db:
+            db.execute('DELETE FROM ingredients WHERE id = ?', (self.id,))
+            return self

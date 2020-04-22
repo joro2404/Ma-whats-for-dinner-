@@ -40,6 +40,7 @@
             <form action="/my_recipes/{{ recipe.id }}/delete" method="POST">
                 <button type="submit">Delete</button>
             </form>
+            <a href="/recipes/{{ recipe.id }}/edit">Edit</a>
         {% endif %}
     </div>
     
