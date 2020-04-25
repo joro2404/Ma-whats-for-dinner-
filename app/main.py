@@ -69,19 +69,23 @@ def show_recipe(id):
         ingredients = Ingredient.find_by_recipe_id(recipe.id)
         user_products=Fridge.get_by_user_id(current_user.id)
         missing_products = []
-        product_missing = 0
+        
 
         for i in ingredients:
-
+            product_fullfilled = 0
             for j in user_products:
-                if i.id == j.id and i.quantity > j.quantity:
-                    missing_products.append(Ingredient(i.id, recipe.id, j.id, i.quantity - j.quantity))
-                if i.id == j.id and i.quantity < j.quantity:
-                    product_missing += 1
+                if i.product_id == j.id and i.quantity > j.quantity:
+                    missing_products.append(Ingredient(i.id, recipe.id, i.product_id, i.quantity - j.quantity))
+                    break
+                if i.product_id == j.id and i.quantity < j.quantity:
+                    product_fullfilled += 1
+                    break
+               
 
-            if product_missing == 1:
-                missing_products.append(Ingredient(i.id, recipe.id, i.id, i.quantity))
-
+            if product_fullfilled == 0:
+                missing_products.append(Ingredient(i.id, recipe.id, i.product_id, i.quantity))
+                
+        print(missing_products)
         return render_template('view_recipe.html', recipe=recipe, user_id=user_id, ingredients=ingredients, product=Product, missing_products=missing_products)
     else:
         recipe = Recipe.find(id)

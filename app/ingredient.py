@@ -31,6 +31,25 @@ class Ingredient:
             rows = db.execute('SELECT * FROM ingredients WHERE recipe_id = ?', (recipe_id,)).fetchall()
             return [Ingredient(*row) for row in rows]
 
+    @staticmethod
+    def get_product_name(id):
+        with DB() as db:
+            name = db.execute('''
+                SELECT name FROM ingredients 
+                INNER JOIN products ON ingredients.product_id = products.id
+                WHERE ingredients.id = ?''', (id,)).fetchone()
+            print(name)
+            return name[0]
+
+    @staticmethod
+    def get_product_unit(id):
+        with DB() as db:
+            unit = db.execute('''
+                SELECT unit FROM ingredients 
+                INNER JOIN products ON ingredients.product_id = products.id
+                WHERE ingredients.id = ?''', (id,)).fetchone()
+
+            return unit[0]
 
     @staticmethod
     def delete_by_recipe(recipe_id):

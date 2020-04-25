@@ -43,6 +43,15 @@
             <a href="/recipes/{{ recipe.id }}/edit">Edit</a>
         {% endif %}
     </div>
+
+
+    {% for f in missing_products %}
+    <div class="card">
+        Name of the product {{ f.get_product_name(f.id) }} </br>
+        Quantity: {{ f.quantity }} </br>
+        Unit: {{ f.get_product_unit(f.id) }}  </br>
+    </div>
+    {% endfor %}
     
 </body>
 </html>
