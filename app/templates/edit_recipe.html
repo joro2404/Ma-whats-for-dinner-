@@ -32,7 +32,7 @@
                                 <option value="{{ product.id }}">{{ product.name }} ({{ product.unit }})</option>\
                             {% endfor %}\
                         </select>\
-                        <input type="number" min="0" name="quantity_of_product' + x + '" placeholder="Quantity!">\
+                        <input type="number" min="0" step="0.1" name="quantity_of_product' + x + '" placeholder="Quantity!">\
                         </div>\
                     </div>\
                     ');
@@ -85,7 +85,7 @@
                             <a href="#" class="delete">Remove</a>
                         </div>
                         <div class="col-75">
-                            <select name="id_of_product1">
+                            <select name="id_of_product{{ i + 1 }}">
                                 <option value="{{ ingredients[i].product_id }}">{{ Product.find(ingredients[i].product_id).name }} ({{ Product.find(ingredients[i].product_id).unit }})</option>
                                 {% for product in products %}
                                     {% if product.id != ingredients[i].product_id %}
@@ -93,7 +93,7 @@
                                     {% endif %}
                                 {% endfor %}
                             </select>
-                            <input type="number" min="0" name="quantity_of_product1" placeholder="Quantity!" value="{{ ingredients[i].quantity }}">
+                            <input type="number" min="0" step="0.1" name="quantity_of_product{{ i + 1 }}" placeholder="Quantity!" value="{{ ingredients[i].quantity }}">
                         </div>
                     </div>
                 {% endfor %}

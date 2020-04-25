@@ -31,7 +31,7 @@
                                 <option value="{{ product.id }}">{{ product.name }} ({{ product.unit }})</option>\
                             {% endfor %}\
                         </select>\
-                        <input type="number" min="0" name="quantity_of_product' + x + '" placeholder="Quantity!">\
+                        <input type="number" min="0" step="0.1" name="quantity_of_product' + x + '" placeholder="Quantity!">\
                         </div>\
                     </div>\
                     ');
@@ -87,7 +87,7 @@
                         <option value="{{ product.id }}">{{ product.name }} ({{ product.unit }})</option>
                     {% endfor %}
                 </select>
-                <input type="number" min="0" name="quantity_of_product1" placeholder="Quantity!">
+                <input type="number" min="0" step="0.1" name="quantity_of_product1" placeholder="Quantity!">
               </div>
             </div>
           </div>
