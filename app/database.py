@@ -60,6 +60,18 @@ CREATE TABLE IF NOT EXISTS ingredients
     )
 ''')
 
+conn.cursor().execute('''
+CREATE TABLE IF NOT EXISTS rating
+    (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        raiting INTEGER NOT NULL,
+        recipe_id INTEGER NOT NULL,
+        user_id INTEGER NOT NULL,
+        FOREIGN KEY (recipe_id) REFERENCES recipes(id),
+        FOREIGN KEY (user_id) REFERENCES users(id)
+    )
+''')
+
 conn.commit()
 
 class DB:
