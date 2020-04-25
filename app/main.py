@@ -28,30 +28,22 @@ def profile():
         ingredient_fullfilled = 0
         ingredient_passed = 0
         suggestion_failed = 0
+        count_of_fullfilled_recipes = 0
 
         for i in current_ingredients:
             ingredient_passed += 1
 
             for j in user_products:
-                if j.id == i.id and j.quantity >= i.quantity:
+                if j.id == i.product_id and j.quantity >= i.quantity:
                     ingredient_fullfilled += 1
 
-            if ingredient_passed != ingredient_fullfilled:
-                suggestion_failed += 1
-                break
+        if ingredient_passed != ingredient_fullfilled:
+            suggestion_failed += 1
 
         if suggestion_failed == 0:
-            count_of_fullfilled_recipes += 1
-
-            if count_of_fullfilled_recipes == 1:
+            if suggested_recipe.rating <= current_recipe.rating:
                 suggested_recipe = current_recipe
-
-            elif count_of_fullfilled_recipes > 1:
-                if suggested_recipe.rating < current_recipe.rating:
-                    suggested_recipe = current_recipe
         
-
-
 
     return render_template('profile.html', products=user_products, suggested_recipe=suggested_recipe)
 
@@ -69,19 +61,23 @@ def show_recipe(id):
         ingredients = Ingredient.find_by_recipe_id(recipe.id)
         user_products=Fridge.get_by_user_id(current_user.id)
         missing_products = []
-        product_missing = 0
+        
 
         for i in ingredients:
-
+            product_fullfilled = 0
             for j in user_products:
-                if i.id == j.id and i.quantity > j.quantity:
-                    missing_products.append(Ingredient(i.id, recipe.id, j.id, i.quantity - j.quantity))
-                if i.id == j.id and i.quantity < j.quantity:
-                    product_missing += 1
+                if i.product_id == j.id and i.quantity > j.quantity:
+                    missing_products.append(Ingredient(i.id, recipe.id, i.product_id, i.quantity - j.quantity))
+                    break
+                if i.product_id == j.id and i.quantity < j.quantity:
+                    product_fullfilled += 1
+                    break
+               
 
-            if product_missing == 1:
-                missing_products.append(Ingredient(i.id, recipe.id, i.id, i.quantity))
-
+            if product_fullfilled == 0:
+                missing_products.append(Ingredient(i.id, recipe.id, i.product_id, i.quantity))
+                
+        print(missing_products)
         return render_template('view_recipe.html', recipe=recipe, user_id=user_id, ingredients=ingredients, product=Product, missing_products=missing_products)
     else:
         recipe = Recipe.find(id)
