@@ -38,7 +38,6 @@ class Ingredient:
                 SELECT name FROM ingredients 
                 INNER JOIN products ON ingredients.product_id = products.id
                 WHERE ingredients.id = ?''', (id,)).fetchone()
-            print(name)
             return name[0]
 
     @staticmethod

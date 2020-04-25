@@ -68,6 +68,7 @@ def show_recipe(id):
             for j in user_products:
                 if i.product_id == j.id and i.quantity > j.quantity:
                     missing_products.append(Ingredient(i.id, recipe.id, i.product_id, i.quantity - j.quantity))
+                    product_fullfilled += 1
                     break
                 if i.product_id == j.id and i.quantity < j.quantity:
                     product_fullfilled += 1
