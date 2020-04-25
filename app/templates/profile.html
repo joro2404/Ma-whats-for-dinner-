@@ -50,7 +50,7 @@
             Daily Suggestion: You don't have enough products! </br>
         {% endif %}
         {% if suggested_recipe.name != "suggestion failled" %}
-            Daily Suggestion:  <a href="/recipes/{{ suggested_recipe.id }}">Click here for preview!</a> </br>
+            Daily Suggestion:  <a href="/recipes/{{ suggested_recipe.id }}">{{ suggested_recipe.name }}</a> </br>
         {% endif %}
     </div>
 
