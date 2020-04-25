@@ -5,3 +5,4 @@ gesko.db
 .pytest_cache
 .coverage
 .gesko.db-journal
+*.pyc

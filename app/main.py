@@ -28,30 +28,22 @@ def profile():
         ingredient_fullfilled = 0
         ingredient_passed = 0
         suggestion_failed = 0
+        count_of_fullfilled_recipes = 0
 
         for i in current_ingredients:
             ingredient_passed += 1
 
             for j in user_products:
-                if j.id == i.id and j.quantity >= i.quantity:
+                if j.id == i.product_id and j.quantity >= i.quantity:
                     ingredient_fullfilled += 1
 
-            if ingredient_passed != ingredient_fullfilled:
-                suggestion_failed += 1
-                break
+        if ingredient_passed != ingredient_fullfilled:
+            suggestion_failed += 1
 
         if suggestion_failed == 0:
-            count_of_fullfilled_recipes += 1
-
-            if count_of_fullfilled_recipes == 1:
+            if suggested_recipe.rating <= current_recipe.rating:
                 suggested_recipe = current_recipe
-
-            elif count_of_fullfilled_recipes > 1:
-                if suggested_recipe.rating < current_recipe.rating:
-                    suggested_recipe = current_recipe
         
-
-
 
     return render_template('profile.html', products=user_products, suggested_recipe=suggested_recipe)
 
