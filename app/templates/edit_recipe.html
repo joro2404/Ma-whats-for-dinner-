@@ -32,7 +32,7 @@
                                 <option value="{{ product.id }}">{{ product.name }} ({{ product.unit }})</option>\
                             {% endfor %}\
                         </select>\
-                        <input type="number" min="0" step="0.1" name="quantity_of_product' + x + '" placeholder="Quantity!">\
+                        <input type="number" min="0" step="0.001" name="quantity_of_product' + x + '" placeholder="Quantity!">\
                         </div>\
                     </div>\
                     ');
@@ -53,13 +53,13 @@
     <div style="margin-top: 5rem;">
         <div class="page">
             <nav class="menu">
-              <ul class="menu__list">
-                <li class="menu__group"><a href="/" class="menu__link">Home</a></li>
-                <li class="menu__group"><a href="/recipes" class="menu__link">Recipes</a></li>
-                <li class="menu__group"><a href="/my_recipes" class="menu__link">My Recipes</a></li>
-                <li class="menu__group"><a href="/create_recipe" class="menu__link">Create</a></li>
-                <li class="menu__group"><a href="/profile" class="menu__link">Profile</a></li>
-                <li class="menu__group"><a href="/logout" class="menu__link">Logout</a></li>
+                <ul class="menu__list">
+                    <li class="menu__group"><a href="/" class="menu__link">Home</a></li>
+                    <li class="menu__group"><a href="/recipes" class="menu__link">Recipes</a></li>
+                    <li class="menu__group"><a href="/my_recipes" class="menu__link">My Recipes</a></li>
+                    <li class="menu__group"><a href="/create_recipe" class="menu__link">Create</a></li>
+                    <li class="menu__group"><a href="/profile" class="menu__link">Profile</a></li>
+                    <li class="menu__group"><a href="/logout" class="menu__link">Logout</a></li>
                 </ul>
             </nav>
         </div>
@@ -93,7 +93,7 @@
                                     {% endif %}
                                 {% endfor %}
                             </select>
-                            <input type="number" min="0" step="0.1" name="quantity_of_product{{ i + 1 }}" placeholder="Quantity!" value="{{ ingredients[i].quantity }}">
+                            <input type="number" min="0" step="0.001" name="quantity_of_product{{ i + 1 }}" placeholder="Quantity!" value="{{ ingredients[i].quantity }}">
                         </div>
                     </div>
                 {% endfor %}

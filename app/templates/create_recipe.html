@@ -31,7 +31,7 @@
                                 <option value="{{ product.id }}">{{ product.name }} ({{ product.unit }})</option>\
                             {% endfor %}\
                         </select>\
-                        <input type="number" min="0" step="0.1" name="quantity_of_product' + x + '" placeholder="Quantity!">\
+                        <input type="number" min="0" step="0.001" name="quantity_of_product' + x + '" placeholder="Quantity!">\
                         </div>\
                     </div>\
                     ');
@@ -53,13 +53,13 @@
     <div style="margin-top: 5rem;">
         <div class="page">
             <nav class="menu">
-              <ul class="menu__list">
-                <li class="menu__group"><a href="/" class="menu__link">Home</a></li>
-                <li class="menu__group"><a href="/recipes" class="menu__link">Recipes</a></li>
-                <li class="menu__group"><a href="/my_recipes" class="menu__link">My Recipes</a></li>
-                <li class="menu__group"><a href="/create_recipe" class="menu__link">Create</a></li>
-                <li class="menu__group"><a href="/profile" class="menu__link">Profile</a></li>
-                <li class="menu__group"><a href="/logout" class="menu__link">Logout</a></li>
+                <ul class="menu__list">
+                    <li class="menu__group"><a href="/" class="menu__link">Home</a></li>
+                    <li class="menu__group"><a href="/recipes" class="menu__link">Recipes</a></li>
+                    <li class="menu__group"><a href="/my_recipes" class="menu__link">My Recipes</a></li>
+                    <li class="menu__group"><a href="/create_recipe" class="menu__link">Create</a></li>
+                    <li class="menu__group"><a href="/profile" class="menu__link">Profile</a></li>
+                    <li class="menu__group"><a href="/logout" class="menu__link">Logout</a></li>
                 </ul>
             </nav>
         </div>
@@ -67,57 +67,57 @@
 
     <div class="container">
         <form action="/create_recipe" method="POST">
-          <div class="row">
-            <div class="col-25">
-              <label>Recipe Name</label>
-            </div>
-            <div class="col-75">
-              <input type="text" name="recipe_name" placeholder="Your recipe name...">
-            </div>
-          </div>
-          
-          <div class="container_fields">
             <div class="row">
-              <div class="col-25">
-                <label>Product 1</label>
-              </div>
-              <div class="col-75">
-                <select name="id_of_product1">
-                    {% for product in products %}
-                        <option value="{{ product.id }}">{{ product.name }} ({{ product.unit }})</option>
-                    {% endfor %}
-                </select>
-                <input type="number" min="0" step="0.1" name="quantity_of_product1" placeholder="Quantity!">
-              </div>
+                <div class="col-25">
+                <label>Recipe Name</label>
+                </div>
+                <div class="col-75">
+                <input type="text" name="recipe_name" placeholder="Your recipe name...">
+                </div>
             </div>
-          </div>
+          
+            <div class="container_fields">
+                <div class="row">
+                <div class="col-25">
+                    <label>Product 1</label>
+                </div>
+                <div class="col-75">
+                    <select name="id_of_product1">
+                        {% for product in products %}
+                            <option value="{{ product.id }}">{{ product.name }} ({{ product.unit }})</option>
+                        {% endfor %}
+                    </select>
+                    <input type="number" min="0" step="0.001" name="quantity_of_product1" placeholder="Quantity!">
+                </div>
+                </div>
+            </div>
 
-          <div class="row">
-              <button class="add_form_field">Add</button>
-          </div>
+            <div class="row">
+                <button class="add_form_field">Add</button>
+            </div>
 
-          <div class="row">
-            <div class="col-25">
-              <label>Time to prepare</label>
+            <div class="row">
+                <div class="col-25">
+                <label>Time to prepare</label>
+                </div>
+                <div class="col-75">
+                <input type="number" min="0" name="time" placeholder="Time to prepare">
+                </div>
             </div>
-            <div class="col-75">
-              <input type="number" min="0" name="time" placeholder="Time to prepare">
-            </div>
-          </div>
 
-          <div class="row">
-            <div class="col-25">
-              <label>Description of your Recipe</label>
+            <div class="row">
+                <div class="col-25">
+                <label>Description of your Recipe</label>
+                </div>
+                <div class="col-75">
+                <textarea name="description" placeholder="Write something.." style="height:200px"></textarea>
+                </div>
             </div>
-            <div class="col-75">
-              <textarea name="description" placeholder="Write something.." style="height:200px"></textarea>
+            <div class="row">
+                <input type="submit" value="Submit">
             </div>
-          </div>
-          <div class="row">
-            <input type="submit" value="Submit">
-          </div>
-        </form>
-      </div>
+            </form>
+        </div>
     
 </body>
 </html>
