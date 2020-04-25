@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS fridge
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         user_id INTEGER NOT NULL,
         product_id INTEGER NOT NULL,
-        quantity INTEGER,
+        quantity DOUBLE(1, 3) NOT NULL,
         FOREIGN KEY (user_id) REFERENCES users(id),
         FOREIGN KEY (product_id) REFERENCES products(id)
     )
@@ -54,7 +54,7 @@ CREATE TABLE IF NOT EXISTS ingredients
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         recipe_id INTEGER NOT NULL,
         product_id INTEGER NOT NULL,
-        quantity INTEGER NOT NULL,
+        quantity DOUBLE(1, 3) NOT NULL,
         FOREIGN KEY (recipe_id) REFERENCES recipes(id),
         FOREIGN KEY (product_id) REFERENCES products(id)
     )
