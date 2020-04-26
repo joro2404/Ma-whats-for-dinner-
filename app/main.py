@@ -95,6 +95,7 @@ def show_recipe(id):
         if current_user.is_authenticated:
             rate = request.form['rate']
             recipe.set_rating(rate, current_user.id)
+            
 
         return redirect(url_for('main.show_recipe', id=recipe.id))
             

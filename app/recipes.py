@@ -99,8 +99,10 @@ class Recipe:
 
             
     def set_rating(self, rate, user_id):
+        print(rate)
         if self.is_current_user_rated_this_recipe(user_id):
             with DB() as db:
+                
                 db.execute('UPDATE rating SET rating = ? WHERE user_id = ? and recipe_id = ?', (rate, user_id, self.id, ))
                 return self
         else:
@@ -113,8 +115,8 @@ class Recipe:
         if self.is_current_user_rated_this_recipe(user_id):
             with DB() as db:
                 rate = db.execute('SELECT rating FROM rating WHERE user_id = ? and recipe_id = ?', (user_id, self.id, )).fetchone()
-                print(rate)
-                return rate[0]
+                # print(rate)
+                return int(rate[0])
 
         else:
             return 0
