@@ -55,35 +55,40 @@ def recipes():
 
 @main.route('/recipes/<int:id>', methods=['GET', 'POST'])
 def show_recipe(id):
-    if current_user.is_authenticated:
-        recipe = Recipe.find(id)
-        user_id = str(current_user.id)
-        ingredients = Ingredient.find_by_recipe_id(recipe.id)
-        user_products=Fridge.get_by_user_id(current_user.id)
-        missing_products = []
-        
+    if request.method == 'GET':
+        if current_user.is_authenticated:
+            recipe = Recipe.find(id)
+            user_id = str(current_user.id)
+            ingredients = Ingredient.find_by_recipe_id(recipe.id)
+            user_products=Fridge.get_by_user_id(current_user.id)
+            missing_products = []
+            
 
-        for i in ingredients:
-            product_fullfilled = 0
-            for j in user_products:
-                if i.product_id == j.id and i.quantity > j.quantity:
-                    missing_products.append(Ingredient(i.id, recipe.id, i.product_id, i.quantity - j.quantity))
-                    product_fullfilled += 1
-                    break
-                if i.product_id == j.id and i.quantity < j.quantity:
-                    product_fullfilled += 1
-                    break
-               
-
-            if product_fullfilled == 0:
-                missing_products.append(Ingredient(i.id, recipe.id, i.product_id, i.quantity))
+            for i in ingredients:
+                product_fullfilled = 0
+                for j in user_products:
+                    if i.product_id == j.id and i.quantity > j.quantity:
+                        missing_products.append(Ingredient(i.id, recipe.id, i.product_id, i.quantity - j.quantity))
+                        product_fullfilled += 1
+                        break
+                    if i.product_id == j.id and i.quantity < j.quantity:
+                        product_fullfilled += 1
+                        break
                 
-        print(missing_products)
-        return render_template('view_recipe.html', recipe=recipe, user_id=user_id, ingredients=ingredients, product=Product, missing_products=missing_products)
-    else:
-        recipe = Recipe.find(id)
-        ingredients = Ingredient.find_by_recipe_id(recipe.id)
-        return render_template('view_recipe.html', recipe=recipe, ingredients=ingredients, product=Product)
+
+                if product_fullfilled == 0:
+                    missing_products.append(Ingredient(i.id, recipe.id, i.product_id, i.quantity))
+                    
+            
+            return render_template('view_recipe.html', recipe=recipe, user_id=user_id, ingredients=ingredients, product=Product, missing_products=missing_products)
+        else:
+            recipe = Recipe.find(id)
+            ingredients = Ingredient.find_by_recipe_id(recipe.id)
+            return render_template('view_recipe.html', recipe=recipe, ingredients=ingredients, product=Product)
+
+    elif request.method == 'POST':
+       
+
 
 
 @main.route('/recipes/<int:id>/edit', methods=['GET', 'POST'])
