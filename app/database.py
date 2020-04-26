@@ -44,7 +44,8 @@ CREATE TABLE IF NOT EXISTS recipes
         user_id TEXT NOT NULL,
         description TEXT NOT NULL,
         rating DOUBLE(1, 1) NOT NULL,
-        time INTEGER
+        time INTEGER NOT NULL,
+        picture TEXT
     )
 ''')
 

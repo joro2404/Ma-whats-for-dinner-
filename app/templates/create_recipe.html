@@ -66,13 +66,22 @@
     </div>
 
     <div class="container">
-        <form action="/create_recipe" method="POST">
+        <form action="/create_recipe" method="POST" enctype="multipart/form-data">
             <div class="row">
                 <div class="col-25">
-                <label>Recipe Name</label>
+                    <label>Recipe Name</label>
                 </div>
                 <div class="col-75">
-                <input type="text" name="recipe_name" placeholder="Your recipe name...">
+                    <input type="text" name="recipe_name" placeholder="Your recipe name...">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-25">
+                    <label>Picture</label>
+                </div>
+                <div class="col-75">
+                    <input type="file" name="file" class="file">
                 </div>
             </div>
           
