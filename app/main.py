@@ -90,7 +90,6 @@ def show_recipe(id):
             ingredients = Ingredient.find_by_recipe_id(recipe.id)
             return render_template('view_recipe.html', recipe=recipe, ingredients=ingredients, product=Product)
 
-<<<<<<< HEAD
     elif request.method == 'POST':
         recipe = Recipe.find(id)
         if current_user.is_authenticated:
@@ -99,9 +98,6 @@ def show_recipe(id):
 
         return redirect(url_for('main.show_recipe', id=recipe.id))
             
-=======
-    # elif request.method == 'POST':
->>>>>>> f439eeedf1e0cb25efa5714f1a14afd7dc7a4904
        
 
 
