@@ -47,8 +47,9 @@ def profile():
             if suggested_recipe.rating <= current_recipe.rating:
                 suggested_recipe = current_recipe
         
+        ingredients = Ingredient.find_by_recipe_id(suggested_recipe.id)
 
-    return render_template('profile.html', products=user_products, suggested_recipe=suggested_recipe)
+    return render_template('profile.html', products=user_products, suggested_recipe=suggested_recipe, ingredients=ingredients, product=Product)
 
 
 @main.route('/recipes')
@@ -89,7 +90,7 @@ def show_recipe(id):
             ingredients = Ingredient.find_by_recipe_id(recipe.id)
             return render_template('view_recipe.html', recipe=recipe, ingredients=ingredients, product=Product)
 
-    elif request.method == 'POST':
+    # elif request.method == 'POST':
        
 
 
