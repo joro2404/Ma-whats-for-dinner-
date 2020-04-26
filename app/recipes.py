@@ -90,11 +90,11 @@ class Recipe:
 
     def is_current_user_rated_this_recipe(self, user_id):
         with DB() as db:
-            is_rated = db.execute('SELECT user_id FROM rating WHERE user_id = ? and recipe_id = ?', (user_id, self.id, )).fetchone()
-            print(is_rated)
+            is_rated = db.execute('SELECT rating FROM rating WHERE user_id = ? and recipe_id = ?', (user_id, self.id, )).fetchone()
+            # print(is_rated)
             if is_rated == None:
                 return False
-            elif is_rate.size() > 0:
+            elif len(is_rated) > 0:
                 return True
 
             
@@ -113,7 +113,7 @@ class Recipe:
         if self.is_current_user_rated_this_recipe(user_id):
             with DB() as db:
                 rate = db.execute('SELECT rating FROM rating WHERE user_id = ? and recipe_id = ?', (user_id, self.id, )).fetchone()
-                # print(rate)
+                print(rate)
                 return rate[0]
 
         else:

@@ -46,20 +46,32 @@
     </div>
 
     <div class="card">
-        <form action="/view_recipe" method="POST">
+        <form action="/recipes/{{ recipe.id }}" method="POST">
             <div class="rate">
-                {% if current_user.is_authenticated %}
+                {% if current_user.is_authenticated == False or current_user.id == recipe.user_id %}
 
-                    {% if recipe.is_current_user_rated_this_recipe(user_id) %}
+                    {% if current_user.is_authenticated == False %}
+                        You need to be loged in to rate recipes </br>
+                    {% endif %}
+
+                    {% if current_user.id == recipe.user_id %}
+                        You can't rate your own recipes </br>
+                    {% endif %}
+
+                {% endif %}
+
+                {% if current_user.is_authenticated and current_user.id != recipe.user_id %}
+
+                    {% if recipe.is_current_user_rated_this_recipe(current_user.id) %}
 
                         {% for i in range(1,6) %}
                         
-                            {% if i == recipe.get_rating(user_id) %}
+                            {% if i == recipe.get_rating(current_user.id) %}
                                 <input type="radio" id="star{{ i }}" name="rate" value="{{ i }}" checked/>
                                 <label for="star{{ i }}" title="text" >{{ i }} stars</label>
                             {% endif %}
 
-                            {% if i != recipe.get_rating(user_id) %}
+                            {% if i != recipe.get_rating(current_user.id) %}
                                 <input type="submit" id="star{{ i }}" name="rate" value="{{ i }}" />
                                 <label for="star{{ i }}" title="text" >{{ i }} stars</label>
                             {% endif %}
@@ -70,7 +82,7 @@
 
                 
 
-                    {% if recipe.is_current_user_rated_this_recipe(user_id) == False %}
+                    {% if recipe.is_current_user_rated_this_recipe(current_user.id) == False  %}
 
                         {% for i in range(1,6) %}
                 
@@ -83,9 +95,7 @@
                 
                 {% endif %}
 
-                {% if current_user.is_authenticated == False %}
-                    You need to be loged in to rate recipes </br>
-                {% endif %}
+                
             </div>
 
             
