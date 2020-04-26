@@ -3,10 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}"> -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/menu.css') }}">
-    
-    <title>Index</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/9d59ec7036.js" crossorigin="anonymous"></script>
+    <title>Profile</title>
 </head>
 <body>
     <div style="margin-top: 5rem;">
@@ -36,22 +38,45 @@
         {% endif %}
     </div>
 
-    
-    {% for f in products %}
-    <div class="card">
-        Name of the product {{ f.find_by_product_id(f.product_id).name }} </br>
-        Quantity: {{ f.quantity }} </br>
-        Unit: {{ f.find_by_product_id(f.product_id).unit }}  </br>
-    </div>
-    {% endfor %}
 
-    <div class="card">
-        {% if suggested_recipe.name == "suggestion failled" %}
-            Daily Suggestion: You don't have enough products! </br>
-        {% endif %}
-        {% if suggested_recipe.name != "suggestion failled" %}
-            Daily Suggestion:  <a href="/recipes/{{ suggested_recipe.id }}">{{ suggested_recipe.name }}</a> </br>
-        {% endif %}
+    <div class="flex-container">
+        <div class="container">
+            <h3>Products in your fridge:</h1>
+            {% for f in products %}
+            <div class="product">
+                {{ f.find_by_product_id(f.product_id).name }} </br>
+                {% if f.find_by_product_id(f.product_id).name == "Egg" %}
+                    {{ f.quantity }}
+                {% else %}
+                    {{ f.quantity }} {{ f.find_by_product_id(f.product_id).unit }}  </br>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+
+
+        <div class="container">
+            {% if suggested_recipe.name == "suggestion failled" %}
+            <h3>Daily Suggestion:</h3>
+            You don't have enough products! </br>
+            {% endif %}
+            {% if suggested_recipe.name != "suggestion failled" %}
+                <h3>Daily Suggestion:</h3>
+                Title: <a href="/recipes/{{ suggested_recipe.id }}">{{ suggested_recipe.name }} </a></br>
+                Description: {{ suggested_recipe.description }} </br>
+                Time to prepare: {{ suggested_recipe.time }} mins <br>
+                {% for ingredient in ingredients %}
+                    <div class="product">
+                        {{ product.find(ingredient.product_id).name }} <br>
+                        {% if product.find(ingredient.product_id).name == "Egg" %}
+                            {{ ingredient.quantity }} <br>
+                        {% else %}
+                            {{ ingredient.quantity }} {{ product.find(ingredient.product_id).unit }} <br>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
     </div>
 
 </body>
