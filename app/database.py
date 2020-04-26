@@ -65,7 +65,7 @@ conn.cursor().execute('''
 CREATE TABLE IF NOT EXISTS rating
     (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
-        raiting INTEGER NOT NULL,
+        rating INTEGER NOT NULL,
         recipe_id INTEGER NOT NULL,
         user_id INTEGER NOT NULL,
         FOREIGN KEY (recipe_id) REFERENCES recipes(id),
