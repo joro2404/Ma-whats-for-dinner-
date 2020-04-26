@@ -1,6 +1,7 @@
 from flask import Flask, redirect, render_template, request, url_for, Blueprint
 from flask_login import login_required, current_user
-import sqlite3
+import os
+from werkzeug.utils import secure_filename
 from .product import Product
 from .recipes import Recipe
 from .fridge import Fridge
@@ -8,6 +9,8 @@ from .ingredient import Ingredient
 
 
 main = Blueprint('main', __name__)
+upload_folder = "/home/vesko/Desktop/gesko/Ma-whats-for-dinner-/app/static/img/uploads"
+default_img = "/home/vesko/Desktop/gesko/Ma-whats-for-dinner-/app/static/img/default.jpeg"
 
 
 @main.route('/')
@@ -21,7 +24,7 @@ def profile():
     user_products=Fridge.get_by_user_id(current_user.id)
     all_recipes = Recipe.all()
     count_of_fullfilled_recipes = 0
-    suggested_recipe = Recipe(0, "suggestion failled", 0, "suggestion failled", 0, 0)
+    suggested_recipe = Recipe(0, "suggestion failled", 0, "suggestion failled", 0, 0, default_img)
 
     for current_recipe in all_recipes:
         current_ingredients = Ingredient.find_by_recipe_id(current_recipe.id)
@@ -77,8 +80,7 @@ def show_recipe(id):
 
             if product_fullfilled == 0:
                 missing_products.append(Ingredient(i.id, recipe.id, i.product_id, i.quantity))
-                
-        print(missing_products)
+
         return render_template('view_recipe.html', recipe=recipe, user_id=user_id, ingredients=ingredients, product=Product, missing_products=missing_products)
     else:
         recipe = Recipe.find(id)
@@ -96,9 +98,20 @@ def edit_recipe(id):
     if request.method == 'GET':
         return render_template('edit_recipe.html', recipe=recipe, ingredients=ingredients, number_of_ingredients=number_of_ingredients, Product=Product, products=products)
     elif request.method == 'POST':
+        if 'file' not in request.files:
+            return redirect(request.url)
+        file = request.files['file']
+        if file.filename == '':
+            filename = recipe.picture
+        if file and Recipe.allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            recipe.remove_picture()
+            file.save(os.path.join(upload_folder, filename))
+
         recipe.name = request.form['recipe_name']
         recipe.description = request.form['description']
         recipe.time = request.form['time']
+        recipe.picture = os.path.join("/static/img/uploads", filename)
         recipe.save()
 
         Ingredient.delete_by_recipe(recipe.id)
@@ -127,13 +140,25 @@ def create_recipe():
         products = Product.all()
         return render_template('create_recipe.html', products=products)
     elif request.method == 'POST':
+        if 'file' not in request.files:
+            return redirect(request.url)
+        file = request.files['file']
+        if file.filename == '':
+            filename = secure_filename("/default.jpeg")
+            filepath = os.path.join("/static/img", filename)
+        if file and Recipe.allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(upload_folder, filename))
+            filepath = os.path.join("/static/img/uploads", filename)
+
         values = (
             None,
             request.form['recipe_name'],
             current_user.id,
             request.form['description'],
             0.0,
-            request.form['time']
+            request.form['time'],
+            filepath
         )
         Recipe(*values).create()
 
@@ -166,25 +191,11 @@ def my_recipes():
 def delete_recipe(id):
     recipe = Recipe.find(id)
     if int(recipe.user_id) == current_user.id:
+        recipe.remove_picture()
         recipe.delete()
         Ingredient.delete_by_recipe(recipe.id)
 
     return redirect(url_for('main.my_recipes'))
-
-
-@main.route('/recipes/<int:id>/<int:ingredient_id>/delete', methods=['POST'])
-@login_required
-def delete_ingredient(id, ingredient_id):
-    recipe = Recipe.find(id)
-    ingredient = Ingredient.find(ingredient_id)
-    if int(recipe.user_id) == current_user.id:
-        if int(recipe.id) == int(ingredient.recipe_id):
-            ingredient.delete()
-            return redirect(url_for('main.edit_recipe', id=recipe.id))
-        else:
-            return redirect(url_for('main.recipes'))
-
-    return redirect(url_for('main.recipes'))
 
 
 if __name__ == '__main__':

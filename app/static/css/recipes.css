@@ -10,7 +10,7 @@ Mid:#5aaa9d
 }
 
 .pizza {
-  margin: 1% auto;
+  margin: 60px auto 0px;
   display: flex;
   overflow: hidden;
   max-width: 800px;
@@ -21,6 +21,7 @@ Mid:#5aaa9d
 .pizza__img {
   width: 100%;
   display: block;
+  max-height: 225px;
 }
 
 .pizza__content {
@@ -82,6 +83,7 @@ Mid:#5aaa9d
 
 .pizza__details {
   display: flex;
+  justify-content: center;
   margin-top: auto;
 }
 

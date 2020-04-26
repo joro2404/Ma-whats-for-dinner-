@@ -6,3 +6,4 @@ gesko.db
 .coverage
 .gesko.db-journal
 *.pyc
+app/static/img/uploads/*
