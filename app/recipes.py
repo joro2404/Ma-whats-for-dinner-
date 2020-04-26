@@ -86,3 +86,27 @@ class Recipe:
         with DB() as db:
             db.execute('DELETE FROM recipes WHERE id = ?', (self.id,))
             return self
+
+    def is_current_user_rated_this_recipe(user_id):
+        with DB() as db:
+            is_rated = db.execute('SELECT user_id FROM rating WHERE user_id = ? and recipe_id = ?', (user_id, self.id, )).fetchone()
+            if is_rated.size() != 0:
+                return True
+            else:
+                return False
+
+    def set_rating(rate, user_id):
+        if is_current_user_rated_this_recipe(user_id):
+            with DB() as db:
+                db.execute('UPDATE rating SET rating = ? WHERE user_id = ? and recipe_id = ?', (rate, user_id, self.id, ))
+                return self
+        else:
+            with DB() as db:
+                db.execute('INSERT INTO rating (rating, user_id, recipe_id) VALUES (?, ?, ?)', (rate, user_id, self.id, ))
+                return self
+        
+
+    def get_rating(user_id):
+        with DB() as db:
+            rate = db.execute('SELECT rating FROM rating WHERE user_id = ? and recipe_id = ?', (user_id, self.id, )).fetchone()
+            return rate[0]

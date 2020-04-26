@@ -9,8 +9,8 @@ from .ingredient import Ingredient
 
 
 main = Blueprint('main', __name__)
-upload_folder = "/home/vesko/Desktop/gesko/Ma-whats-for-dinner-/app/static/img/uploads"
-default_img = "/home/vesko/Desktop/gesko/Ma-whats-for-dinner-/app/static/img/default.jpeg"
+upload_folder = "/home/georgi/Desktop/Ma-whats-for-dinner-/app/static/img/uploads"
+default_img = "/home/georgi/Desktop/Ma-whats-for-dinner-/app/static/img/default.jpeg"
 
 
 @main.route('/')
@@ -90,6 +90,10 @@ def show_recipe(id):
             return render_template('view_recipe.html', recipe=recipe, ingredients=ingredients, product=Product)
 
     elif request.method == 'POST':
+        recipe = Recipe.find(id)
+        if current_user.is_authenticated:
+            rate = request.form['rate']
+            
        
 
 
