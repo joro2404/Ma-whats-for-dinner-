@@ -64,7 +64,7 @@
 
                     {% if recipe.is_current_user_rated_this_recipe(current_user.id) %}
 
-                        {% for i in range(5,0,-1) %}
+                        {% for i in range(5, 0, -1) %}
                             
                             {% if i == recipe.get_rating(current_user.id) | int %}
                                 <input type="radio" id="star{{ i }}" name="checked" value="{{ i }}" checked/>
@@ -84,7 +84,7 @@
 
                     {% if recipe.is_current_user_rated_this_recipe(current_user.id) == False  %}
 
-                        {% for i in range(1,6) %}
+                        {% for i in range(5, 0, -1) %}
                 
                             <input type="submit" id="star{{ i }}" name="rate" value="{{ i }}" />
                             <label for="star{{ i }}" title="text" >{{ i }} stars</label>

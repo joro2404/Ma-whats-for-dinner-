@@ -10,9 +10,12 @@ from .recomendation_model import get_user_common_rated_recipes
 
 
 main = Blueprint('main', __name__)
-upload_folder = "/home/georgi/Desktop/Ma-whats-for-dinner-/app/static/img/uploads"
-default_img = "/home/georgi/Desktop/Ma-whats-for-dinner-/app/static/img/default.jpeg"
-
+#gosho
+# upload_folder = "/home/georgi/Desktop/Ma-whats-for-dinner-/app/static/img/uploads"
+# default_img = "/home/georgi/Desktop/Ma-whats-for-dinner-/app/static/img/default.jpeg"
+#vesko
+upload_folder = "/home/vesko/Desktop/gesko/Ma-whats-for-dinner-/app/static/img/uploads"
+default_img = "/home/vesko/Desktop/gesko/Ma-whats-for-dinner-/app/static/img/default.jpeg"
 
 
 @main.route('/')
@@ -28,6 +31,7 @@ def profile():
     user_products=Fridge.get_by_user_id(current_user.id)
     all_recipes = Recipe.all()
     count_of_fullfilled_recipes = 0
+    ingredients = []
     suggested_recipe = Recipe(0, "suggestion failled", 0, "suggestion failled", 0, 0, default_img)
 
     for current_recipe in all_recipes:
@@ -79,7 +83,7 @@ def show_recipe(id):
                         missing_products.append(Ingredient(i.id, recipe.id, i.product_id, i.quantity - j.quantity))
                         product_fullfilled += 1
                         break
-                    if i.product_id == j.id and i.quantity < j.quantity:
+                    if i.product_id == j.id and i.quantity <= j.quantity:
                         product_fullfilled += 1
                         break
                 
@@ -102,9 +106,6 @@ def show_recipe(id):
 
 
         return redirect(url_for('main.show_recipe', id=recipe.id))
-            
-       
-
 
 
 @main.route('/recipes/<int:id>/edit', methods=['GET', 'POST'])
