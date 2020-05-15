@@ -1,5 +1,6 @@
 from .database import DB
 from flask_login import current_user
+from scipy import spatial
 
 def get_users_count():
     all_user_list = []
@@ -33,7 +34,47 @@ def get_user_common_rated_recipes(user_id):
     intersection = current_user_ratings_set.intersection(an_user_ratings)
 
     intersection_list = list(intersection)
-
+    intersection_list.sort()
     return intersection_as_list
+
+
+def calculate_euclidean_spatial_distance():
+    all_users = get_users_count()
+    top_five_euclidean_scores = {0: 1000, 0: 1000, 0: 1000, 0: 1000, 0: 1000}
+
+    for i in all_users:
+        if i == current_user.id:
+            continue
+        else:
+            common_recipes_with_an_user = get_user_common_rated_recipes(i)
+
+            with DB() as db:
+                current_user_ratings_for_common_recipes = db.execute('SELECT rating FROM rating WHERE user_id = ?', (current_user,)).fetchall()
+                an_user_raitings_for_common_recipes = db.execute('SELECT rating FROM rating WHERE user_id = ?', (i,)).fetchall()
+
+            current_user_ratings_for_common_recipes_list = []
+            an_user_raitings_for_common_recipes_list = []
+
+            for j in current_user_ratings_for_common_recipes:
+                current_user_ratings_for_common_recipes_list.append(i[0])
+
+            for j in an_user_raitings_for_common_recipes:
+                an_user_raitings_for_common_recipes_list.append(i[0])
+
+            euclidean_spatial_distance = spatial.distance.euclidean(current_user_ratings_for_common_recipes_list, an_user_raitings_for_common_recipes_list)
+            if euclidean_spatial_distance < list(top_five_euclidean_scores.values())[-1] : 
+                last_value = list(top_five_euclidean_scores.values())[-1]
+                last_key = list(top_five_euclidean_scores.keys())[-1]
+                top_five_euclidean_scores.popitem()
+                top_five_euclidean_scores.update({i: seuclidean_spatial_distance})
+
+                top_five_euclidean_scores = sorted(d.items(), key=lambda x: x[1])
+                top_five_euclidean_scores = dict(top_five_euclidean_scores)
+
+    return top_five_euclidean_scores
+
+
+
+
 
 
