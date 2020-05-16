@@ -109,6 +109,27 @@ def get_best_matching_user_id():
 
     return best_user_id
 
+def get_recommended_recipes_for_user():
+    id = get_best_matching_user_id()
+
+    with DB() as db:
+            an_user_raitings_for_common_recipes = db.execute('SELECT raiting FROM rating WHERE user_id = ?', (i,)).fetchall()
+            current_user_ratings_for_common_recipes = = db.execute('SELECT rating FROM rating WHERE user_id = ?', (current_user,)).fetchall()
+
+            current_user_ratings_for_common_recipes_list = []
+            an_user_raitings_for_common_recipes_list = []
+
+            for j in current_user_ratings_for_common_recipes:
+                current_user_ratings_for_common_recipes_list.append(i[0])
+
+            for j in an_user_raitings_for_common_recipes:
+                an_user_raitings_for_common_recipes_list.append(i[0])
+
+    result = set(an_user_raitings_for_common_recipes_list) - set(current_user_ratings_for_common_recipes_list)
+
+    return list(result)
+
+
 
 
             
