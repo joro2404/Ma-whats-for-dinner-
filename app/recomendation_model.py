@@ -18,6 +18,8 @@ def all_user_ratings_by_user_id(user_id):
 
     with DB() as db:
         all_users_ratings_tuple = db.execute('SELECT recipe_id FROM rating WHERE user_id = ?', (user_id,)).fetchall()
+        # print(all_users_ratings_tuple)
+        # print(list(all_users_ratings_tuple))
         for i in all_users_ratings_tuple:
             all_user_ratings_list.append(i[0])
 
@@ -35,7 +37,7 @@ def get_user_common_rated_recipes(user_id):
 
     intersection_list = list(intersection)
     intersection_list.sort()
-    return intersection_as_list
+    return intersection_list
 
 
 def calculate_euclidean_spatial_distance():
@@ -73,6 +75,43 @@ def calculate_euclidean_spatial_distance():
 
     return top_five_euclidean_scores
 
+
+def get_best_matching_user_id():
+    top_five_euclidean_scores = calculate_euclidean_spatial_distance()
+
+    list_of_top_five_user_id = list(top_five_euclidean_scores.keys())
+
+    best_user_id = 0
+    best_cosine_score = 1000
+
+    # all_user_ratings_by_user_id(current_user.id)
+
+    for i in top_five_euclidean_scores:
+        temp = get_user_common_rated_recipes(i)
+        with DB() as db:
+            an_user_raitings_for_common_recipes = db.execute('SELECT raiting FROM rating WHERE user_id = ?', (i,)).fetchall()
+            current_user_ratings_for_common_recipes = = db.execute('SELECT rating FROM rating WHERE user_id = ?', (current_user,)).fetchall()
+
+            current_user_ratings_for_common_recipes_list = []
+            an_user_raitings_for_common_recipes_list = []
+
+            for j in current_user_ratings_for_common_recipes:
+                current_user_ratings_for_common_recipes_list.append(i[0])
+
+            for j in an_user_raitings_for_common_recipes:
+                an_user_raitings_for_common_recipes_list.append(i[0])
+
+            cosine_spatial_distance = spatial.distance.cosine(current_user_ratings_for_common_recipes_list, an_user_raitings_for_common_recipes_list)
+
+            if cosine_spatial_distance < best_cosine_score:
+                best_cosine_score = cosine_spatial_distance
+                best_user_id = i
+
+    return best_user_id
+            
+
+
+            
 
 
 
