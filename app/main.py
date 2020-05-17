@@ -6,7 +6,7 @@ from .product import Product
 from .recipes import Recipe
 from .fridge import Fridge
 from .ingredient import Ingredient
-from .recomendation_model import get_user_common_rated_recipes
+from .recomendation_model import *
 
 
 main = Blueprint('main', __name__)
@@ -20,8 +20,20 @@ default_img = "/home/vesko/Desktop/gesko/Ma-whats-for-dinner-/app/static/img/def
 
 @main.route('/')
 def index():
-    
-    return render_template('index.html')
+    if current_user.is_authenticated:
+        # print(get_users_count())
+        print(all_user_ratings_by_user_id(1))
+        print(all_user_ratings_by_user_id(4))
+        print(get_user_common_rated_recipes(4))
+        # print(get_ratings_from_common_recipes(get_user_common_rated_recipes(2), 2))
+        # print(calculate_euclidean_spatial_distance())
+        recipes = get_recommended_recipes_for_user()
+        for recipe in recipes:
+            print(recipe)
+        print(recipes)
+        return render_template('index.html', recipes=recipes)
+    else: 
+        return render_template('index.html')
 
 
 @main.route('/profile')

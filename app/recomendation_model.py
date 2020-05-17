@@ -7,10 +7,11 @@ def get_users_count():
 
     with DB() as db:
         all_users_count = db.execute('SELECT id FROM users').fetchall()
-        for i in all_users_count:
-            all_user_list.append(i[0])
+    for i in all_users_count:
+        all_user_list.append(i[0])
 
-        return all_user_list
+    all_user_list.sort()
+    return all_user_list
 
 
 def all_user_ratings_by_user_id(user_id):
@@ -20,11 +21,11 @@ def all_user_ratings_by_user_id(user_id):
         all_users_ratings_tuple = db.execute('SELECT recipe_id FROM rating WHERE user_id = ?', (user_id,)).fetchall()
         # print(all_users_ratings_tuple)
         # print(list(all_users_ratings_tuple))
-        for i in all_users_ratings_tuple:
-            all_user_ratings_list.append(i[0])
+    for i in all_users_ratings_tuple:
+        all_user_ratings_list.append(i[0])
 
-        all_user_ratings_list.sort()
-        return all_user_ratings_list
+    all_user_ratings_list.sort()
+    return all_user_ratings_list
 
 
 
@@ -40,12 +41,12 @@ def get_user_common_rated_recipes(user_id):
     return intersection_list
 
 def get_ratings_from_common_recipes(common_recipes, user_id):
-    result = ((), ())
+    result = [[], []]
 
-    for i in common_recipes():
+    for i in common_recipes:
         with DB() as db:
-            result[0].appened('SELECT raiting FROM raiting WHERE user_id = ? and recipe_id = ?', (current_user.id, i,).fetchone())
-            result[1].append('SELECT rating FROM raiting WHERE user_id = ?, and recipe_id = ?', (user_id, i,).fetchone())
+            result[0].append(db.execute('SELECT rating FROM rating WHERE user_id = ? AND recipe_id = ?', (current_user.id, i,)).fetchone()[0])
+            result[1].append(db.execute('SELECT rating FROM rating WHERE user_id = ? AND recipe_id = ?', (user_id, i,)).fetchone()[0])
 
     return result
 
@@ -62,23 +63,29 @@ def calculate_euclidean_spatial_distance():
 
             result = get_ratings_from_common_recipes(common_recipes_with_an_user, i)
 
+            # print(result[0])
+            # print(result[1])
+
+            if len(result[0]) > 0 and len(common_recipes_with_an_user) > 3:
+                euclidean_spatial_distance = spatial.distance.euclidean(result[0], result[1])
+                if euclidean_spatial_distance < list(top_five_euclidean_scores.values())[-1] : 
+                    last_value = list(top_five_euclidean_scores.values())[-1]
+                    last_key = list(top_five_euclidean_scores.keys())[-1]
+                    top_five_euclidean_scores.popitem()
+                    top_five_euclidean_scores.update({i: euclidean_spatial_distance})
+
+                    top_five_euclidean_scores = sorted(top_five_euclidean_scores.items(), key=lambda x: x[1])
+                    top_five_euclidean_scores = dict(top_five_euclidean_scores)
             
-
-            euclidean_spatial_distance = spatial.distance.euclidean(result[0], result[1])
-            if euclidean_spatial_distance < list(top_five_euclidean_scores.values())[-1] : 
-                last_value = list(top_five_euclidean_scores.values())[-1]
-                last_key = list(top_five_euclidean_scores.keys())[-1]
-                top_five_euclidean_scores.popitem()
-                top_five_euclidean_scores.update({i: euclidean_spatial_distance})
-
-                top_five_euclidean_scores = sorted(top_five_euclidean_scores.items(), key=lambda x: x[1])
-                top_five_euclidean_scores = dict(top_five_euclidean_scores)
+            else:
+                continue
 
     return top_five_euclidean_scores
 
 
 def get_best_matching_user_id():
     top_five_euclidean_scores = calculate_euclidean_spatial_distance()
+    # print(top_five_euclidean_scores)
 
     list_of_top_five_user_id = list(top_five_euclidean_scores.keys())
 
@@ -90,22 +97,27 @@ def get_best_matching_user_id():
     for i in list_of_top_five_user_id:
         temp = get_user_common_rated_recipes(i)
 
-            result = (temp, i)
+        result = (temp, i)
 
-            cosine_spatial_distance = spatial.distance.cosine(result[0], result[1])
+        # print(result[0])
+        # print(result[1])
 
-            if cosine_spatial_distance < best_cosine_score:
-                best_cosine_score = cosine_spatial_distance
-                best_user_id = i
+        cosine_spatial_distance = spatial.distance.cosine(result[0], result[1])
+
+        if cosine_spatial_distance < best_cosine_score:
+            best_cosine_score = cosine_spatial_distance
+            best_user_id = i
 
     return best_user_id
 
+
 def get_recommended_recipes_for_user():
     id = get_best_matching_user_id()
+    print(id)
 
     with DB() as db:
-            an_user_raitings_for_common_recipes = db.execute('SELECT id FROM recipes WHERE user_id = ?', (id,)).fetchall()
-            current_user_ratings_for_common_recipes = db.execute('SELECT id FROM racipes WHERE user_id = ?', (current_user,)).fetchall()
+            an_user_raitings_for_common_recipes = db.execute('SELECT recipe_id FROM rating WHERE user_id = ?', (id,)).fetchall()
+            current_user_ratings_for_common_recipes = db.execute('SELECT recipe_id FROM rating WHERE user_id = ?', (current_user.id,)).fetchall()
 
             current_user_ratings_for_common_recipes_list = []
             an_user_raitings_for_common_recipes_list = []
@@ -114,8 +126,12 @@ def get_recommended_recipes_for_user():
                 current_user_ratings_for_common_recipes_list.append(j[0])
 
             for j in an_user_raitings_for_common_recipes:
-                an_user_raitings_for_common_recipes_list.append(j[0])
+                rating_of_recipe_j = db.execute('SELECT rating FROM rating WHERE user_id = ? AND recipe_id =?', (id, j[0])).fetchone()
+                if rating_of_recipe_j[0] > 3:
+                    an_user_raitings_for_common_recipes_list.append(j[0])
 
+    print(an_user_raitings_for_common_recipes_list)
+    print(current_user_ratings_for_common_recipes_list)
     result = set(an_user_raitings_for_common_recipes_list) - set(current_user_ratings_for_common_recipes_list)
 
     return list(result)
