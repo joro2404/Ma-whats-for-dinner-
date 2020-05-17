@@ -6,6 +6,7 @@ from .product import Product
 from .recipes import Recipe
 from .fridge import Fridge
 from .ingredient import Ingredient
+from .recomendation_model import get_user_common_rated_recipes
 
 
 main = Blueprint('main', __name__)
@@ -16,14 +17,17 @@ main = Blueprint('main', __name__)
 upload_folder = "/home/vesko/Desktop/gesko/Ma-whats-for-dinner-/app/static/img/uploads"
 default_img = "/home/vesko/Desktop/gesko/Ma-whats-for-dinner-/app/static/img/default.jpeg"
 
+
 @main.route('/')
 def index():
+    
     return render_template('index.html')
 
 
 @main.route('/profile')
 @login_required
 def profile():
+    print(get_user_common_rated_recipes(current_user.id))
     user_products=Fridge.get_by_user_id(current_user.id)
     all_recipes = Recipe.all()
     count_of_fullfilled_recipes = 0
@@ -100,6 +104,7 @@ def show_recipe(id):
             rate = request.form['rate']
             recipe.set_rating(rate, current_user.id)
             recipe.set_overall_rating()
+
 
         return redirect(url_for('main.show_recipe', id=recipe.id))
 
