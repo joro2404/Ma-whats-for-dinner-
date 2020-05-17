@@ -54,6 +54,7 @@ def get_ratings_from_common_recipes(common_recipes, user_id):
 def calculate_euclidean_spatial_distance():
     all_users = get_users_count()
     top_five_euclidean_scores = {0: 1000, 0: 1000, 0: 1000, 0: 1000, 0: 1000}
+    global_dict = {}
 
     for i in all_users:
         if i == current_user.id:
@@ -73,12 +74,12 @@ def calculate_euclidean_spatial_distance():
 
                     top_five_euclidean_scores = sorted(top_five_euclidean_scores.items(), key=lambda x: x[1])
                     top_five_euclidean_scores = dict(top_five_euclidean_scores)
+                    global_dict.update(top_five_euclidean_scores)
             
             else:
                 continue
 
-    return top_five_euclidean_scores
-
+    return global_dict
 
 def get_best_matching_user_id():
     top_five_euclidean_scores = calculate_euclidean_spatial_distance()
@@ -95,17 +96,21 @@ def get_best_matching_user_id():
 
         cosine_spatial_distance = spatial.distance.cosine(result[0], result[1])
 
-        if cosine_spatial_distance < best_cosine_score:
-            best_cosine_score = cosine_spatial_distance
-            best_user_id = i
+        top_five_euclidean_scores[i] = cosine_spatial_distance
 
-    return best_user_id
+    top_five_euclidean_scores = sorted(top_five_euclidean_scores.items(), key=lambda x: x[1])
+    top_five_euclidean_scores = dict(top_five_euclidean_scores)
+
+    return top_five_euclidean_scores
 
 
 def get_recommended_recipes_for_user():
-    id = get_best_matching_user_id()
+    dict_of_ids_cosine = get_best_matching_user_id()
 
-    with DB() as db:
+    list_of_top_five_user_id = list(dict_of_ids_cosine.keys())
+
+    for id in list_of_top_five_user_id:
+        with DB() as db:
             an_user_raitings_for_common_recipes = db.execute('SELECT recipe_id FROM rating WHERE user_id = ?', (id,)).fetchall()
             current_user_ratings_for_common_recipes = db.execute('SELECT recipe_id FROM rating WHERE user_id = ?', (current_user.id,)).fetchall()
 
@@ -117,9 +122,13 @@ def get_recommended_recipes_for_user():
 
             for j in an_user_raitings_for_common_recipes:
                 rating_of_recipe_j = db.execute('SELECT rating FROM rating WHERE user_id = ? AND recipe_id =?', (id, j[0])).fetchone()
-                if rating_of_recipe_j[0] > 3:
+                if rating_of_recipe_j[0] > 4:
                     an_user_raitings_for_common_recipes_list.append(j[0])
 
-    result = set(an_user_raitings_for_common_recipes_list) - set(current_user_ratings_for_common_recipes_list)
+        result = set(an_user_raitings_for_common_recipes_list) - set(current_user_ratings_for_common_recipes_list)
+        if len(list(result)) == 0:
+            continue
+        else:
+            break
 
     return list(result)
