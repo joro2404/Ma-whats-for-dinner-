@@ -131,5 +131,5 @@ class Recipe:
                     
     def set_overall_rating(self):
         with DB() as db:
-            db.execute('UPDATE recipes SET rating = ? WHERE recipe_id = ?', (self.get_overall_rating() ,  self.id, ))
+            db.execute('UPDATE recipes SET rating = ? WHERE id = ?', (self.get_overall_rating() ,  self.id, ))
             return self
