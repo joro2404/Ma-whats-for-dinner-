@@ -63,6 +63,14 @@ def calculate_euclidean_spatial_distance():
             for j in an_user_raitings_for_common_recipes:
                 an_user_raitings_for_common_recipes_list.append(i[0])
 
+            # temp_an_user = get_user_common_rated_recipes(i)
+
+            # current_user_ratings_set = set(current_user_ratings_for_common_recipes)
+            # intersection = current_user_ratings_set.intersection(temp_an_user)
+
+            # intersection_list = list(intersection)
+            # intersection_list.sort()
+
             euclidean_spatial_distance = spatial.distance.euclidean(current_user_ratings_for_common_recipes_list, an_user_raitings_for_common_recipes_list)
             if euclidean_spatial_distance < list(top_five_euclidean_scores.values())[-1] : 
                 last_value = list(top_five_euclidean_scores.values())[-1]
@@ -128,6 +136,9 @@ def get_recommended_recipes_for_user():
     result = set(an_user_raitings_for_common_recipes_list) - set(current_user_ratings_for_common_recipes_list)
 
     return list(result)
+
+    #line 43 fuction need revising, not gettign the common recipes, gettign the whole list of thier rated recipes 
+    # to be done 
 
 
 
