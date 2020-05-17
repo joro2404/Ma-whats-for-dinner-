@@ -6,6 +6,7 @@
     <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}"> -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/menu.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/welcome.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/recipes.css') }}">
     <title>Ma, whats for dinner?</title>
 </head>
 <body>
@@ -44,5 +45,28 @@
             {{ messages[0] }}
         {% endif %}
     {% endwith %}
+
+    {% if current_user.is_authenticated %}
+        {% for recipe in recipes %}
+            <figure class="pizza">
+                <div class="pizza__hero">
+                    <a href="/recipes/{{ recipe.id }}"><img src="{{ recipe.picture }}" alt="pizza" class="pizza__img"></a>
+                </div>
+                <div class="pizza__content">
+                    <div class="pizza__title">
+                        <h1 class="pizza__heading">{{ recipe.name }}</h1>
+                        <!-- <div class="pizza__tag pizza__tag--1">#vegetarian</div>
+                        <div class="pizza__tag pizza__tag--2">#italian</div> -->
+                    </div>
+                    <p class="pizza__description">{{ recipe.description }}</p>
+                    <div class="pizza__details">
+                        <p class="pizza__detail"><span class="emoji">🍕</span>850kcal</p>
+                        <p class="pizza__detail"><span class="emoji">⏱</span>{{ recipe.time }} min</p>
+                        <p class="pizza__detail"><span class="emoji">⭐</span>{{ recipe.get_overall_rating() }} / 5</p>
+                    </div>
+                </div>
+            </figure>
+        {% endfor %}
+    {% endif %}
 </body>
 </html>

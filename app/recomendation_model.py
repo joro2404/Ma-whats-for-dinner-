@@ -7,6 +7,7 @@ def get_users_count():
 
     with DB() as db:
         all_users_count = db.execute('SELECT id FROM users').fetchall()
+
     for i in all_users_count:
         all_user_list.append(i[0])
 
@@ -19,8 +20,7 @@ def all_user_ratings_by_user_id(user_id):
 
     with DB() as db:
         all_users_ratings_tuple = db.execute('SELECT recipe_id FROM rating WHERE user_id = ?', (user_id,)).fetchall()
-        # print(all_users_ratings_tuple)
-        # print(list(all_users_ratings_tuple))
+
     for i in all_users_ratings_tuple:
         all_user_ratings_list.append(i[0])
 
@@ -50,6 +50,7 @@ def get_ratings_from_common_recipes(common_recipes, user_id):
 
     return result
 
+
 def calculate_euclidean_spatial_distance():
     all_users = get_users_count()
     top_five_euclidean_scores = {0: 1000, 0: 1000, 0: 1000, 0: 1000, 0: 1000}
@@ -60,11 +61,7 @@ def calculate_euclidean_spatial_distance():
         else:
             common_recipes_with_an_user = get_user_common_rated_recipes(i)
 
-
             result = get_ratings_from_common_recipes(common_recipes_with_an_user, i)
-
-            # print(result[0])
-            # print(result[1])
 
             if len(result[0]) > 0 and len(common_recipes_with_an_user) > 3:
                 euclidean_spatial_distance = spatial.distance.euclidean(result[0], result[1])
@@ -85,22 +82,16 @@ def calculate_euclidean_spatial_distance():
 
 def get_best_matching_user_id():
     top_five_euclidean_scores = calculate_euclidean_spatial_distance()
-    # print(top_five_euclidean_scores)
 
     list_of_top_five_user_id = list(top_five_euclidean_scores.keys())
 
     best_user_id = 0
     best_cosine_score = 1000
 
-    # all_user_ratings_by_user_id(current_user.id)
-
     for i in list_of_top_five_user_id:
         temp = get_user_common_rated_recipes(i)
 
         result = (temp, i)
-
-        # print(result[0])
-        # print(result[1])
 
         cosine_spatial_distance = spatial.distance.cosine(result[0], result[1])
 
@@ -113,7 +104,6 @@ def get_best_matching_user_id():
 
 def get_recommended_recipes_for_user():
     id = get_best_matching_user_id()
-    print(id)
 
     with DB() as db:
             an_user_raitings_for_common_recipes = db.execute('SELECT recipe_id FROM rating WHERE user_id = ?', (id,)).fetchall()
@@ -130,24 +120,6 @@ def get_recommended_recipes_for_user():
                 if rating_of_recipe_j[0] > 3:
                     an_user_raitings_for_common_recipes_list.append(j[0])
 
-    print(an_user_raitings_for_common_recipes_list)
-    print(current_user_ratings_for_common_recipes_list)
     result = set(an_user_raitings_for_common_recipes_list) - set(current_user_ratings_for_common_recipes_list)
 
     return list(result)
-
-    #line 43 fuction need revising, not gettign the common recipes, gettign the whole list of thier rated recipes 
-    # to be done 
-
-
-
-
-            
-
-
-            
-
-
-
-
-
