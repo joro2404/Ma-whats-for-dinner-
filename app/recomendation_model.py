@@ -109,6 +109,8 @@ def get_recommended_recipes_for_user():
 
     list_of_top_five_user_id = list(dict_of_ids_cosine.keys())
 
+    result = []
+
     for id in list_of_top_five_user_id:
         with DB() as db:
             an_user_raitings_for_common_recipes = db.execute('SELECT recipe_id FROM rating WHERE user_id = ?', (id,)).fetchall()
