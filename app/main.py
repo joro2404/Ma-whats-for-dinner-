@@ -33,7 +33,6 @@ def index():
 @main.route('/profile')
 @login_required
 def profile():
-    print(get_user_common_rated_recipes(current_user.id))
     user_products=Fridge.get_by_user_id(current_user.id)
     all_recipes = Recipe.all()
     count_of_fullfilled_recipes = 0

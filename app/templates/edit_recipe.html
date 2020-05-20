@@ -32,7 +32,7 @@
                                 <option value="{{ product.id }}">{{ product.name }} ({{ product.unit }})</option>\
                             {% endfor %}\
                         </select>\
-                        <input type="number" min="0" step="0.001" name="quantity_of_product' + x + '" placeholder="Quantity!">\
+                        <input type="number" min="0" step="0.001" name="quantity_of_product' + x + '" placeholder="Quantity!" required>\
                         </div>\
                     </div>\
                     ');
@@ -102,7 +102,7 @@
                                     {% endif %}
                                 {% endfor %}
                             </select>
-                            <input type="number" min="0" step="0.001" name="quantity_of_product{{ i + 1 }}" placeholder="Quantity!" value="{{ ingredients[i].quantity }}">
+                            <input type="number" min="0" step="0.001" name="quantity_of_product{{ i + 1 }}" placeholder="Quantity!" value="{{ ingredients[i].quantity }}" required>
                         </div>
                     </div>
                 {% endfor %}
