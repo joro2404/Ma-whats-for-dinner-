@@ -73,6 +73,21 @@ CREATE TABLE IF NOT EXISTS rating
     )
 ''')
 
+conn.cursor().execute('''
+CREATE TABLE IF NOT EXISTS sensors
+    (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        apds0 INTEGER NOT NULL,
+        apds1 INTEGER NOT NULL,
+        apds2 INTEGER NOT NULL,
+        apds3 INTEGER NOT NULL,
+        apds4 INTEGER NOT NULL,
+        apds5 INTEGER NOT NULL,
+        apds6 INTEGER NOT NULL,
+        apds7 INTEGER NOT NULL
+    )
+''')
+
 conn.commit()
 
 class DB:

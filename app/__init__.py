@@ -22,5 +22,8 @@ def create_app():
     from .main import main as main_blueprint
     app.register_blueprint(main_blueprint)
 
+    from .sensors import sensors as sensors_blueprint
+    app.register_blueprint(sensors_blueprint)
+
     return app
 
