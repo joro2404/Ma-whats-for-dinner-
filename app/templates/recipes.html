@@ -89,34 +89,11 @@
                     <div class="blog-posts-area">
 
                         <!-- Single Blog Area -->
-
-
-                        <!--{% for recipe in recipes %}
-                                <figure class="pizza">
-                                    <div class="pizza__hero">
-                                        <a href="/recipes/{{ recipe.id }}"><img src="{{ recipe.picture }}" alt="pizza" class="pizza__img"></a>
-                                    </div>
-                                    <div class="pizza__content">
-                                        <div class="pizza__title">
-                                            <h1 class="pizza__heading">{{ recipe.name }}</h1>
-                                            <!-- <div class="pizza__tag pizza__tag--1">#vegetarian</div>
-                                            <div class="pizza__tag pizza__tag--2">#italian</div> 
-                                        </div>
-                                        <p class="pizza__description">{{ recipe.description }}</p>
-                                        <div class="pizza__details">
-                                            <p class="pizza__detail"><span class="emoji">🍕</span>850kcal</p>
-                                            <p class="pizza__detail"><span class="emoji">⏱</span>{{ recipe.time }} min</p>
-                                            <p class="pizza__detail"><span class="emoji">⭐</span>{{ recipe.get_overall_rating() }} / 5</p>
-                                        </div>
-                                    </div>
-                                    
-                                </figure>
-                            {% endfor %}-->
                         {% for recipe in recipes %}
                         <div class="single-blog-area mb-80">
                             <!-- Thumbnail -->
                             <div class="blog-thumbnail">
-                                <img style="width: 703px; height: 294px;" src="{{ recipe.picture }}" alt="">
+                                <a href="/recipes/{{ recipe.id }}" ><img style="width: 703px; height: 294px;" src="{{ recipe.picture }}" alt=""></a>
                                 <!-- Post Date -->
                                 <div class="post-date">
                                     <a><span>{{ '%0.2f'| format(recipe.get_overall_rating()|float) }}<br>⭐ </span></a>
@@ -174,9 +151,6 @@
         </div>
     </div>
     <!-- ##### Blog Area End ##### -->
-
-    
-    <!-- ##### Footer Area Start ##### -->
 
     <!-- ##### All Javascript Files ##### -->
     <!-- jQuery-2.2.4 js -->
