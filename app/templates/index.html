@@ -258,34 +258,71 @@
                     </div>
                 </div>
             </div>
-            
-            {% if current_user.is_authenticated %}
-                {% for recipe in recipes %}
-                <div class="row">
-                    <!-- Single Best Receipe Area -->
-                    <div class="col-12 col-sm-6 col-lg-4">
-                        <div class="single-best-receipe-area mb-30">
-                            <img style="height: 360px; width: 312" src="{{ recipe.picture }}" alt="">
-                            <div class="receipe-content">
-                                <a href="/recipes/{{ recipe.id }}">
-                                    <h5>{{ recipe.name }}</h5>
-                                </a>
-                                <div class="ratings">
-                                    {% for i in range(1, 6) %} 
-                                    {%if i <= recipe.get_overall_rating() %}
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                    {% else %}
-                                        <i class="fa fa-star-o" aria-hidden="true"></i>
-                                    {% endif %}
+            <div class="row">
+                {% if current_user.is_authenticated %}
+                    {% for recipe in recipes %}
+                    
+                        <!-- Single Best Receipe Area -->
+                        <div class="col-12 col-sm-6 col-lg-4">
+                            <div class="single-best-receipe-area mb-30">
+                                <img style="height: 300px; width: 312" src="{{ recipe.picture }}" alt="">
+                                <div class="receipe-content">
+                                    <a href="/recipes/{{ recipe.id }}">
+                                        <h5>{{ recipe.name }}</h5>
+                                    </a>
+                                    <div class="ratings">
+                                        {% for i in range(1, 6) %} 
+                                        {%if i <= recipe.get_overall_rating() %}
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                        {% else %}
+                                            <i class="fa fa-star-o" aria-hidden="true"></i>
+                                        {% endif %}
 
-                                    {% endfor %}
+                                        {% endfor %}
+                                    </div>
                                 </div>
+                            </div>
+                        </div>
+                    
+                    {% endfor %}
+                {% endif %}
+
+                <div class="col-12 col-sm-6 col-lg-4">
+                    <div class="single-best-receipe-area mb-30">
+                        <img src="../static/img/bg-img/r2.jpg" alt="">
+                        <div class="receipe-content">
+                            <a href="receipe-post.html">
+                                <h5>Homemade Burger</h5>
+                            </a>
+                            <div class="ratings">
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star-o" aria-hidden="true"></i>
                             </div>
                         </div>
                     </div>
                 </div>
-                {% endfor %}
-            {% endif %}
+
+                <div class="col-12 col-sm-6 col-lg-4">
+                    <div class="single-best-receipe-area mb-30">
+                        <img src="../static/img/bg-img/r5.jpg" alt="">
+                        <div class="receipe-content">
+                            <a href="receipe-post.html">
+                                <h5>Homemade Breakfast</h5>
+                            </a>
+                            <div class="ratings">
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star" aria-hidden="true"></i>
+                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
         </div>
     </section>
