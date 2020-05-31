@@ -226,7 +226,27 @@
             </div>
         </div>
     </section>
-    <!-- ##### Top Catagory Area End ##### -->
+    <!-- ##### Top Catagory Area End ##### 
+    {% if current_user.is_authenticated %}
+        {% for recipe in recipes %}
+            <figure class="pizza">
+                <div class="pizza__hero">
+                    <a href="/recipes/{{ recipe.id }}"><img src="{{ recipe.picture }}" alt="pizza" class="pizza__img"></a>
+                </div>
+                <div class="pizza__content">
+                    <div class="pizza__title">
+                        <h1 class="pizza__heading">{{ recipe.name }}</h1>
+                    </div>
+                    <p class="pizza__description">{{ recipe.description }}</p>
+                    <div class="pizza__details">
+                        <p class="pizza__detail"><span class="emoji">🍕</span>850kcal</p>
+                        <p class="pizza__detail"><span class="emoji">⏱</span>{{ recipe.time }} min</p>
+                        <p class="pizza__detail"><span class="emoji">⭐</span>{{ recipe.get_overall_rating() }} / 5</p>
+                    </div>
+                </div>
+            </figure>
+        {% endfor %}
+    {% endif %}-->
 
     <!-- ##### Best Receipe Area Start ##### -->
     <section class="best-receipe-area">
@@ -234,68 +254,41 @@
             <div class="row">
                 <div class="col-12">
                     <div class="section-heading">
-                        <h3>The best Receipies</h3>
+                        <h3>The best Recipes</h3>
                     </div>
                 </div>
             </div>
+            
+            {% if current_user.is_authenticated %}
+                {% for recipe in recipes %}
+                <div class="row">
+                    <!-- Single Best Receipe Area -->
+                    <div class="col-12 col-sm-6 col-lg-4">
+                        <div class="single-best-receipe-area mb-30">
+                            <img style="height: 360px; width: 312" src="{{ recipe.picture }}" alt="">
+                            <div class="receipe-content">
+                                <a href="/recipes/{{ recipe.id }}">
+                                    <h5>{{ recipe.name }}</h5>
+                                </a>
+                                <div class="ratings">
+                                    {% for i in range(1, 6) %} 
+                                    {%if i <= recipe.get_overall_rating() %}
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                    {% else %}
+                                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                                    {% endif %}
 
-            <div class="row">
-                <!-- Single Best Receipe Area -->
-                <div class="col-12 col-sm-6 col-lg-4">
-                    <div class="single-best-receipe-area mb-30">
-                        <img src="../static/img/bg-img/r1.jpg" alt="">
-                        <div class="receipe-content">
-                            <a href="receipe-post.html">
-                                <h5>Sushi Easy Receipy</h5>
-                            </a>
-                            <div class="ratings">
-                                <i class="fa fa-star" aria-hidden="true"></i>
-                                <i class="fa fa-star" aria-hidden="true"></i>
-                                <i class="fa fa-star" aria-hidden="true"></i>
-                                <i class="fa fa-star" aria-hidden="true"></i>
-                                <i class="fa fa-star" aria-hidden="true"></i>
+                                    {% endfor %}
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                {% endfor %}
+            {% endif %}
 
-                <!-- Single Best Receipe Area -->
-                <div class="col-12 col-sm-6 col-lg-4">
-                    <div class="single-best-receipe-area mb-30">
-                        <img src="../static/img/bg-img/r2.jpg" alt="">
-                        <div class="receipe-content">
-                            <a href="receipe-post.html">
-                                <h5>Homemade Burger</h5>
-                            </a>
-                            <div class="ratings">
-                                <i class="fa fa-star" aria-hidden="true"></i>
-                                <i class="fa fa-star" aria-hidden="true"></i>
-                                <i class="fa fa-star" aria-hidden="true"></i>
-                                <i class="fa fa-star" aria-hidden="true"></i>
-                                <i class="fa fa-star-o" aria-hidden="true"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Single Best Receipe Area -->
-                <div class="col-12 col-sm-6 col-lg-4">
-                    <div class="single-best-receipe-area mb-30">
-                        <img src="../static/img/bg-img/r3.jpg" alt="">
-                        <div class="receipe-content">
-                            <a href="receipe-post.html">
-                                <h5>Vegan Smoothie</h5>
-                            </a>
-                            <div class="ratings">
-                                <i class="fa fa-star" aria-hidden="true"></i>
-                                <i class="fa fa-star" aria-hidden="true"></i>
-                                <i class="fa fa-star" aria-hidden="true"></i>
-                                <i class="fa fa-star-o" aria-hidden="true"></i>
-                                <i class="fa fa-star-o" aria-hidden="true"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        </div>
+    </section>
 
                
     <!-- ##### Best Receipe Area End ##### -->
