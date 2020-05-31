@@ -1,73 +1,3 @@
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/menu.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/welcome.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/recipes.css') }}">
-    <title>Ma, whats for dinner?</title>
-</head>
-<body>
-    
-    <div style="margin-top: 5rem;">
-        <div class="page">
-            <nav class="menu">
-              <ul class="menu__list">
-                <li class="menu__group"><a href="/" class="menu__link">Home</a></li>
-                <li class="menu__group"><a href="/recipes" class="menu__link">Recipes</a></li>
-                {% if not current_user.is_authenticated %}
-                    <li class="menu__group"><a href="/login" class="menu__link">Log In</a></li>
-                    <li class="menu__group"><a href="/register" class="menu__link">Register</a></li>
-                {% endif %}
-                {% if current_user.is_authenticated %}
-                    <li class="menu__group"><a href="/my_recipes" class="menu__link">My Recipes</a></li>
-                    <li class="menu__group"><a href="/create_recipe" class="menu__link">Create</a></li>
-                    <li class="menu__group"><a href="/profile" class="menu__link">Profile</a></li>
-                    <li class="menu__group"><a href="/logout" class="menu__link">Logout</a></li>
-                {% endif %}
-                </ul>
-            </nav>
-        </div>
-    </div>
-    
-    <div class="plate">
-        <p class="script"><span>MA</span></p>
-        <p class="shadow text1">WHAT</p>
-        <p class="shadow text2">IS FOR</p>
-        <p class="shadow text3">DINNER</p>
-        <p class="script"><span>BY TEAM GESKO</span></p>
-    </div>
-
-    {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            {{ messages[0] }}
-        {% endif %}
-    {% endwith %}
-
-    {% if current_user.is_authenticated %}
-        {% for recipe in recipes %}
-            <figure class="pizza">
-                <div class="pizza__hero">
-                    <a href="/recipes/{{ recipe.id }}"><img src="{{ recipe.picture }}" alt="pizza" class="pizza__img"></a>
-                </div>
-                <div class="pizza__content">
-                    <div class="pizza__title">
-                        <h1 class="pizza__heading">{{ recipe.name }}</h1>
-                    </div>
-                    <p class="pizza__description">{{ recipe.description }}</p>
-                    <div class="pizza__details">
-                        <p class="pizza__detail"><span class="emoji">🍕</span>850kcal</p>
-                        <p class="pizza__detail"><span class="emoji">⏱</span>{{ recipe.time }} min</p>
-                        <p class="pizza__detail"><span class="emoji">⭐</span>{{ recipe.get_overall_rating() }} / 5</p>
-                    </div>
-                </div>
-            </figure>
-        {% endfor %}
-    {% endif %}
-</body>
-</html> -->
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -109,7 +39,7 @@
                     <nav class="classy-navbar justify-content-between" id="deliciousNav">
 
                         <!-- Logo -->
-                        <a class="nav-brand" href="index.html"><img src="../static/img/core-img/logo.png" alt=""></a>
+                        <a class="nav-brand logo-ma" href="/"><img src="../static/img/core-img/logo.png" alt=""></a>
 
 
                         <!-- Menu -->
@@ -123,7 +53,7 @@
                             <!-- Nav Start -->
                             <div class="classynav">
                                 <ul>
-                                    <li class="active"><a href="/index">Home</a></li>
+                                    <li class="active"><a href="/">Home</a></li>
                                     <li><a href="/recipes">Recipes</a></li>
                                     {% if not current_user.is_authenticated %}
                                         <li><a href="/login">Login</a></li>
@@ -330,8 +260,6 @@
                
     <!-- ##### Best Receipe Area End ##### -->
 
-    <!-- ##### All Javascript Files ##### -->
-    <!-- jQuery-2.2.4 js -->
     {% block javascript %}
         <script src="{{ url_for('static', filename='js/jquery/jquery-2.2.4.min.js') }}"></script>
         <script src="{{ url_for('static', filename='js/bootstrap/popper.min.js') }}"></script>
@@ -339,7 +267,6 @@
         <script src="{{ url_for('static', filename='js/plugins/plugins.js') }}"></script>
         <script src="{{ url_for('static', filename='js/active.js') }}"></script>
     {% endblock %}
-    <!-- <script src="js/active.js"></script> -->
 </body>
 
 </html>

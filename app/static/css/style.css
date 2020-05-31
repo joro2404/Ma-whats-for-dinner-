@@ -1377,4 +1377,9 @@ textarea:focus {
     margin-bottom: 0;
     padding-left: 30px; }
 
+.logo-ma {
+  width: 250px; 
+  height: auto; 
+}
+
 /*# sourceMappingURL=style.css.map */
