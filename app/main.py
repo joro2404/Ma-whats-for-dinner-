@@ -77,27 +77,31 @@ def show_recipe(id):
             recipe = Recipe.find(id)
             user_id = str(current_user.id)
             ingredients = Ingredient.find_by_recipe_id(recipe.id)
-            user_products=Fridge.get_by_user_id(current_user.id)
+            user_products = Fridge.get_by_user_id(current_user.id)
+
+            recipe_ingredients_names = []
+            fridge_products_names = []
+
+            for ingredient in ingredients:
+                recipe_ingredients_names.append(Product.find(ingredient.product_id).name)
+
+            for product in user_products:
+                fridge_products_names.append(Product.find(product.product_id).name)
+
             missing_products = []
             missing_products_names = []
-            
 
-            for i in ingredients:
-                product_fullfilled = 0
-                for j in user_products:
-                    if i.product_id == j.id and i.quantity > j.quantity:
-                        missing_products.append(Ingredient(i.id, recipe.id, i.product_id, i.quantity - j.quantity))
-                        missing_products_names.append(i.get_product_name(i.id))
-                        product_fullfilled += 1
-                        break
-                    if i.product_id == j.id and i.quantity <= j.quantity:
-                        product_fullfilled += 1
-                        break
-                
+            for index, ingredient_name in enumerate(recipe_ingredients_names):
+                if ingredient_name in fridge_products_names:
+                    product = Fridge.get_by_product_id(ingredients[index].product_id)
+                    if ingredients[index].quantity > product.quantity:
+                        missing_products.append(ingredients[index])
+                        missing_products_names.append(ingredient_name)
 
-                if product_fullfilled == 0:
-                    missing_products.append(Ingredient(i.id, recipe.id, i.product_id, i.quantity))
-                    missing_products_names.append(i.get_product_name(i.id))
+                else:
+                    missing_products.append(ingredients[index])
+                    missing_products_names.append(ingredient_name)
+
                     
             return render_template('view_recipe.html', recipe=recipe, user_id=user_id, ingredients=ingredients, product=Product, missing_products=missing_products, missing_products_names=missing_products_names)
         else:

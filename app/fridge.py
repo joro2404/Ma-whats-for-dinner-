@@ -25,6 +25,13 @@ class Fridge:
 
 
     @staticmethod
+    def get_by_product_id(id):
+        with DB() as db:
+            row = db.execute('SELECT * FROM fridge WHERE product_id = ?',(id,)).fetchone()
+            return Fridge(*row)
+
+
+    @staticmethod
     def find_by_product_id(product_id):
         with DB() as db:
             row = db.execute('SELECT * FROM products WHERE id = ?',(product_id,)).fetchone()
