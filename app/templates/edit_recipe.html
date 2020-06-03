@@ -5,8 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Recipe</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/create_recipe.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/menu.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
@@ -50,22 +49,75 @@
     </script>
 </head>
 <body>
-    <div style="margin-top: 5rem;">
-        <div class="page">
-            <nav class="menu">
-                <ul class="menu__list">
-                    <li class="menu__group"><a href="/" class="menu__link">Home</a></li>
-                    <li class="menu__group"><a href="/recipes" class="menu__link">Recipes</a></li>
-                    <li class="menu__group"><a href="/my_recipes" class="menu__link">My Recipes</a></li>
-                    <li class="menu__group"><a href="/create_recipe" class="menu__link">Create</a></li>
-                    <li class="menu__group"><a href="/profile" class="menu__link">Profile</a></li>
-                    <li class="menu__group"><a href="/logout" class="menu__link">Logout</a></li>
-                </ul>
-            </nav>
-        </div>
+    <!-- Preloader -->
+    <div id="preloader">
+        <i class="circle-preloader"></i>
+        <img src="{{ url_for('static', filename='img/core-img/salad.png') }}" alt="">
     </div>
 
-    <div class="container">
+
+    <!-- ##### Header Area Start ##### -->
+    <header class="header-area">
+
+        <!-- Navbar Area -->
+        <div class="delicious-main-menu">
+            <div class="classy-nav-container breakpoint-off">
+                <div class="container">
+                    <!-- Menu -->
+                    <nav class="classy-navbar justify-content-between" id="deliciousNav">
+
+                        <!-- Logo -->
+                        <a class="nav-brand logo-ma" href="/"><img src="{{ url_for('static', filename='img/core-img/logo.png') }}" alt=""></a>
+
+
+                        <!-- Menu -->
+                        <div class="classy-menu">
+
+                            <!-- close btn -->
+                            <div class="classycloseIcon">
+                                <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
+                            </div>
+
+                            <!-- Nav Start -->
+                            <div class="classynav">
+                                <ul>
+                                    <li><a href="/">Home</a></li>
+                                    <li><a href="/recipes">Recipes</a></li>
+                                    {% if not current_user.is_authenticated %}
+                                        <li><a href="/login">Login</a></li>
+                                        <li><a href="/register">Register</a></li>
+                                    {% else %}
+                                        <li><a href="/my_recipes">My Recipes</a></li>
+                                        <li><a href="/create_recipe">Create</a></li>
+                                        <li><a href="/profile">Profile</a></li>
+                                        <li><a href="/logout">Logout</a></li>
+                                    {% endif %}
+                                </ul>
+                            </div>
+                            <!-- Nav End -->
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- ##### Header Area End ##### -->
+
+    <!-- ##### Breadcumb Area Start ##### -->
+    <div class="breadcumb-area bg-img bg-overlay" style="background-image: url({{ url_for('static', filename='img/bg-img/breadcumb3.jpg') }});">
+        <div class="container h-100">
+            <div class="row h-100 align-items-center">
+                <div class="col-12">
+                    <div class="breadcumb-text text-center">
+                        <h2>Edit Recipe</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ##### Breadcumb Area End ##### -->
+
+    <div class="container-recipe">
         <form action="/recipes/{{ recipe.id }}/edit" method="POST" enctype="multipart/form-data">
             <div class="row">
                 <div class="col-25">
@@ -108,7 +160,7 @@
                 {% endfor %}
             </div>
 
-            <div class="row">
+            <div class="row right">
                 <button class="add_form_field">Add</button>
             </div>
 
@@ -129,10 +181,13 @@
                     <textarea name="description" placeholder="Write something.." style="height:200px">{{ recipe.description }}</textarea>
                 </div>
             </div>
-            <div class="row">
+            <div class="row right">
                 <input type="submit" value="Update">
             </div>
         </form>
     </div>
+    {% block javascript %}
+        <script src="{{ url_for('static', filename='js/active.js') }}"></script>
+    {% endblock %}
 </body>
 </html>
