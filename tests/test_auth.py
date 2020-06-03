@@ -27,7 +27,7 @@ class FlaskTestCase(BaseTestCase):
             data=dict(email="admin@admin.com", password="admin"),
             follow_redirects=True
         )
-        self.assertIn(b'Hi admin!', response.data)
+        self.assertIn(b'Profile', response.data)
 
 
     def test_login_if_already_logged(self):
