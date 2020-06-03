@@ -5,17 +5,17 @@
 }
 
 body {
-    background-image: url('../img/backgrounds.png');
+    
     background-repeat: no-repeat;
     background-attachment: fixed;
 }
 
-.card {
-    width: 100%;
+.card { 
+    width: 100%; 
     max-width: 400px;
     margin: 50px auto 0;
-    background: white;
-    border: 1px solid #888;
+    background: #40ba37;
+    border: 1px solid #40ba37;
     padding: 50px;
     box-shadow: 0 30px 60px -20px rgba(0, 0, 0, .6);
 }
@@ -49,7 +49,7 @@ body {
     outline: none;
     font-size: 16px;
     padding-left: 15px;
-    border-color: #6c5ce7;
+    border-color: #40ba37;
     border-style: solid;
 }
   
@@ -58,7 +58,7 @@ body {
 }
   
 .form-input:focus {
-    box-shadow: 0 0 4px rgba(75, 9, 130, 1);
+    box-shadow: 0 0 4px rgba(25, 73, 22, 1);
 }
   
 .button {
@@ -70,7 +70,7 @@ body {
     height: 50px;
     width: 100%;
     max-width: 180px;
-    background-color: #6c5ce7;
+    background-color: #40ba37;
     border: none;
     font-size: 20px;
     border-radius: 2rem;
