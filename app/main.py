@@ -107,7 +107,10 @@ def show_recipe(id):
         else:
             recipe = Recipe.find(id)
             ingredients = Ingredient.find_by_recipe_id(recipe.id)
-            return render_template('view_recipe.html', recipe=recipe, ingredients=ingredients, product=Product)
+            missing_products_names = []
+            for ingredient in ingredients:
+                missing_products_names.append(Product.find(ingredient.product_id).name)
+            return render_template('view_recipe.html', recipe=recipe, ingredients=ingredients, product=Product, missing_products_names=missing_products_names)
 
     elif request.method == 'POST':
         recipe = Recipe.find(id)
