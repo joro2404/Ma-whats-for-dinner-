@@ -23,7 +23,7 @@ The project is a combination of two school projects. The hardware part are senso
 
 2. Initialize and activate a virtualenv:
   ```
-  $ virtualenv -venv
+  $ virtualenv venv
   $ source venv/bin/activate
   ```
 
