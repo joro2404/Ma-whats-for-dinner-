@@ -2,16 +2,16 @@
 
 ![Logo](/app/static/img/core-img/logo.png)
 
-Project about tracking what you have in your fridge.  
-Offers you recipes based on products in your fridge.  
-Platform for sharing recipes with other users.
-Create, rate, share your delicious ideas.
+Ma what's for dinner?  
+In this web app you can check what you have in your fridge back home, what recipes you are able to cook with the products that you have and also discover new recipes.
+You can create recipes, share them with friends and other users, rate the recipes etc.
+The app tells you if you can cook a given ecipe with your current available products and many more!
+The project is a combination of two school projects. The hardware part are sensors in the fridge that tell you what products you have.
 
-<hr>
 
 ## Demo and more
-![Video Demo](https://youtu.be/TdikHEJOIYo)
-![Hardware Repo](https://github.com/veselin-angelov/ma-whats-for-dinner-hardware)
+[Video Demo](https://youtu.be/TdikHEJOIYo)<br/>
+[Hardware Repo](https://github.com/veselin-angelov/ma-whats-for-dinner-hardware)
 
 ## Installation instructions
 
@@ -50,7 +50,7 @@ Create, rate, share your delicious ideas.
 
 ## Authors
 
-**Veselin Angelov** - *Programer, Hardware* - [veselin-angelov](https://github.com/veselin-angelov)
+**Veselin Angelov** - *Programer, Hardware* - [veselin-angelov](https://github.com/veselin-angelov)<br/>
 **Georgi Lyubenov** - *Programer, Hardware* - [joro2404](https://github.com/joro2404)
 
 ## Project Stats
