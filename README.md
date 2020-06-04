@@ -5,8 +5,8 @@
 Ma what's for dinner?  
 In this web app you can check what you have in your fridge back home, what recipes you are able to cook with the products that you have and also discover new recipes.
 You can create recipes, share them with friends and other users, rate the recipes etc.
-The app tells you if you can cook a given ecipe with your current available products and many more!
-The project is a combination of two school projects. The hardware part are sensors in the fridge that tell you what products you have.
+The app tells you if you can cook a given recipe with your current available products and many more!
+The project is a combination of two school projects. The hardware part are sensors in the fridge that tell you what products are available.
 
 
 ## Demo and more
