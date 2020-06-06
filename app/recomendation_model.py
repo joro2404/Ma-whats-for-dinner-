@@ -124,7 +124,7 @@ def get_recommended_recipes_for_user():
 
             for j in an_user_raitings_for_common_recipes:
                 rating_of_recipe_j = db.execute('SELECT rating FROM rating WHERE user_id = ? AND recipe_id =?', (id, j[0])).fetchone()
-                if rating_of_recipe_j[0] > 4:
+                if rating_of_recipe_j[0] > 1:
                     an_user_raitings_for_common_recipes_list.append(j[0])
 
         result = set(an_user_raitings_for_common_recipes_list) - set(current_user_ratings_for_common_recipes_list)

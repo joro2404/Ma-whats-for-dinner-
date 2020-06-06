@@ -22,6 +22,8 @@ default_img = "/home/vesko/Desktop/gesko/Ma-whats-for-dinner-/app/static/img/def
 def index():
     if current_user.is_authenticated:
         recipes = get_recommended_recipes_for_user()
+        while(len(recipes) > 3):
+            recipes.pop()
         recipes_obj = []
         for recipe in recipes:
             recipes_obj.append(Recipe.find(recipe))
