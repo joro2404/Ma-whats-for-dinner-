@@ -163,28 +163,7 @@
             </div>
         </div>
     </section>
-    <!-- ##### Top Catagory Area End ##### 
-    {% if current_user.is_authenticated %}
-        {% for recipe in recipes %}
-            <figure class="pizza">
-                <div class="pizza__hero">
-                    <a href="/recipes/{{ recipe.id }}"><img src="{{ recipe.picture }}" alt="pizza" class="pizza__img"></a>
-                </div>
-                <div class="pizza__content">
-                    <div class="pizza__title">
-                        <h1 class="pizza__heading">{{ recipe.name }}</h1>
-                    </div>
-                    <p class="pizza__description">{{ recipe.description }}</p>
-                    <div class="pizza__details">
-                        <p class="pizza__detail"><span class="emoji">🍕</span>850kcal</p>
-                        <p class="pizza__detail"><span class="emoji">⏱</span>{{ recipe.time }} min</p>
-                        <p class="pizza__detail"><span class="emoji">⭐</span>{{ recipe.get_overall_rating() }} / 5</p>
-                    </div>
-                </div>
-            </figure>
-        {% endfor %}
-    {% endif %}-->
-
+    <!-- ##### Top Catagory Area End ##### -->
     <!-- ##### Best Receipe Area Start ##### -->
     <section class="best-receipe-area">
         <div class="container">
@@ -209,12 +188,11 @@
                                     </a>
                                     <div class="ratings">
                                         {% for i in range(1, 6) %} 
-                                        {%if i <= recipe.get_overall_rating() %}
-                                            <i class="fa fa-star" aria-hidden="true"></i>
-                                        {% else %}
-                                            <i class="fa fa-star-o" aria-hidden="true"></i>
-                                        {% endif %}
-
+                                            {%if i <= recipe.get_overall_rating() %}
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                            {% else %}
+                                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                                            {% endif %}
                                         {% endfor %}
                                     </div>
                                 </div>
@@ -223,9 +201,7 @@
                     
                     {% endfor %}
                 {% endif %}
-
-                
-
+            </div>
         </div>
     </section>
 
