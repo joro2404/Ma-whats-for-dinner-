@@ -11,11 +11,11 @@ from .recomendation_model import *
 
 main = Blueprint('main', __name__)
 #gosho
-# upload_folder = "/home/georgi/Desktop/Ma-whats-for-dinner-/app/static/img/uploads"
-# default_img = "/home/georgi/Desktop/Ma-whats-for-dinner-/app/static/img/default.jpeg"
+upload_folder = "/home/georgi/Desktop/Ma-whats-for-dinner-/app/static/img/uploads"
+default_img = "/home/georgi/Desktop/Ma-whats-for-dinner-/app/static/img/default.jpeg"
 #vesko
-upload_folder = "/home/vesko/Desktop/gesko/Ma-whats-for-dinner-/app/static/img/uploads"
-default_img = "/home/vesko/Desktop/gesko/Ma-whats-for-dinner-/app/static/img/default.jpeg"
+# upload_folder = "/home/vesko/Desktop/gesko/Ma-whats-for-dinner-/app/static/img/uploads"
+# default_img = "/home/vesko/Desktop/gesko/Ma-whats-for-dinner-/app/static/img/default.jpeg"
 
 
 @main.route('/')
