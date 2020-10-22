@@ -6,7 +6,7 @@ sensors = Blueprint('sensors', __name__)
 @sensors.route('/insert', methods=['GET', 'POST'])
 def get_sensors_info():
     if request.method == 'GET':
-        return redirect("http://188.126.25.95:81", code=302)
+        return redirect("http://192.168.43.241:81", code=302)
     if request.method == 'POST':
         values = [0, 0, 0, 0, 0, 0, 0, 0]
 
@@ -23,6 +23,8 @@ def get_sensors_info():
 
         update_eggs_in_fridge()
         update_butter_in_fridge()
+        update_milk_in_fridge()
+        update_cheese_in_fridge()
 
         return 'OK'
 
@@ -32,7 +34,29 @@ def get_sensors_info():
 def get_butter():
     count = 0
     with DB() as db:
-        values_of_sensors = db.execute('SELECT apds1 FROM sensors WHERE id = 1').fetchone()
+        values_of_sensors = db.execute('SELECT apds3 FROM sensors WHERE id = 1').fetchone()
+
+    for value in values_of_sensors:
+        if value == 1:
+            count += 1
+    
+    return count
+
+def get_milk():
+    count = 0
+    with DB() as db:
+        values_of_sensors = db.execute('SELECT apds4 FROM sensors WHERE id = 1').fetchone()
+
+    for value in values_of_sensors:
+        if value == 1:
+            count += 1
+    
+    return count
+
+def get_cheese():
+    count = 0
+    with DB() as db:
+        values_of_sensors = db.execute('SELECT apds5 FROM sensors WHERE id = 1').fetchone()
 
     for value in values_of_sensors:
         if value == 1:
@@ -45,7 +69,7 @@ def get_butter():
 def get_taken_count_eggs():
     count = 0
     with DB() as db:
-        values_of_sensors = db.execute('SELECT apds4, apds5, apds6, apds7 FROM sensors WHERE id = 1').fetchone()
+        values_of_sensors = db.execute('SELECT apds0, apds1, apds2, apds6 FROM sensors WHERE id = 1').fetchone()
 
     for value in values_of_sensors:
         if value == 1:
@@ -74,6 +98,38 @@ def update_butter_in_fridge():
         quantity,
         1,
         7
+    )
+
+    with DB() as db:
+        db.execute('UPDATE fridge SET quantity = ? WHERE user_id = ? AND product_id = ?', values)
+
+
+def update_milk_in_fridge():
+    quantity = 0
+    if get_milk() == 1:
+        quantity = 1000
+    else:
+        quantity = 0
+    values = (
+        quantity,
+        1,
+        1
+    )
+
+    with DB() as db:
+        db.execute('UPDATE fridge SET quantity = ? WHERE user_id = ? AND product_id = ?', values)
+
+
+def update_cheese_in_fridge():
+    quantity = 0
+    if get_cheese() == 1:
+        quantity = 1000
+    else:
+        quantity = 0
+    values = (
+        quantity,
+        1,
+        4
     )
 
     with DB() as db:
